@@ -1,13 +1,30 @@
-<script setup>
-import AppHeader from './components/AppHeader.vue'
+<script>
+import AppHeader from './components/AppHeader.vue';
+import TestOrders from './components/TestOrders.vue';
+
+export default {
+    name: "App",
+    data() {
+        return {
+        }
+    },
+    components: {
+        AppHeader,
+        TestOrders
+    },
+    methods: {
+
+    }
+};
 </script>
 
 <template>
-  <AppHeader></AppHeader>
+  <AppHeader />
+  <TestOrders />
   <router-view></router-view>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .logo {
   height: 6em;
   padding: 1.5em;

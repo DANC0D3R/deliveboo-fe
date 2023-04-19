@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  
+  <h1>Ma che bel titolo!</h1>
 </template>
 
 <style lang="scss" scoped>
