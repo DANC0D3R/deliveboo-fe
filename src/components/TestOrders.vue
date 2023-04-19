@@ -1,16 +1,27 @@
 <script>
+import axios from 'axios';
 export default {
     name: 'TestOrders',
     data() {
-    return {
+        return {
+        }
+    },
+    methods: {
+        createOrder() {
+            axios.post('http://127.0.0.1:8000/api/orders')
+            .then(response => {
+                console.log(response);
+
+                
+            });
+        }
     }
-  },
 }
 </script>
 
 <template>
     <h1>Form di test</h1>
-    <form action="">
+    <form action="" method="POST" @submit.prevent="createOrder()">
         <input type="text" name="client_name" placeholder="Scrivi il tuo nome">
 
         <input type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
