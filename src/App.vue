@@ -20,8 +20,10 @@ export default {
 
 <template>
   <AppHeader />
-  <TestOrders />
-  <router-view></router-view>
+  <!-- <TestOrders /> -->
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
 
 <style lang="scss" scoped>
