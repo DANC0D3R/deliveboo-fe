@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import {store} from "../../store"
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'RestaurantsIndex',
@@ -17,6 +18,7 @@ export default {
         this.getRestaurants();
     },
     methods: {
+        
         // changePage(page) {
         //     this.currentPage = page;
         //     this.getPosts();
@@ -33,6 +35,7 @@ export default {
                     this.restaurants = response.data.restaurants.data;
                     // this.lastPage = response.data.posts.last_page;
                 });
+                console.log(this.getRestaurants)
         }
     }
 };
@@ -45,7 +48,7 @@ export default {
             </div>
         </div>
         
-        <!-- <div class="row">
+        {/* <!-- <div class="row">
             <div class="col">
                 <nav class="d-flex justify-content-center">
                     <ul class="pagination">
@@ -59,7 +62,7 @@ export default {
                     </ul>
                 </nav>
             </div>
-        </div> -->
+        </div> --> */}
     </div>
 </template>
 
