@@ -9,13 +9,15 @@ export default {
     },
     data() {
         return {
+            types: [],
             restaurants: [],
+            targetType: '',
             // currentPage: 1,
             // lastPage: 1
         };
     },
     created() {
-        this.getRestaurants();
+        this.getTypes();
     },
     methods: {
         
@@ -23,32 +25,68 @@ export default {
         //     this.currentPage = page;
         //     this.getPosts();
         // },
-        getRestaurants() {
+        targetTypeCheck() {
+            console.log(this.targetType);
+        },
+        getTypes() {
             axios
-                .get('http://127.0.0.1:8000/api/restaurants', {
-                    // params: {
-                    //     page: this.currentPage
-                    // }
+                .get('http://127.0.0.1:8000/api/types', {
                 })
                 .then(response => {
                     console.log(response.data);
-                    this.restaurants = response.data.restaurants.data;
-                    // this.lastPage = response.data.posts.last_page;
+                    this.types = response.data.data;
                 });
-                console.log(this.getRestaurants)
+        },
+        getRestaurants() {
+            this.restaurants = []; //Così svuotiamo l'array dei ristoranti
+
+            let typeId = this.targetType.id; //Qui salviamo l'id della tipologia ricercata
+
+            axios
+                .get('http://127.0.0.1:8000/api/restaurants', {
+
+                })
+                .then(response => {
+                    console.log(response.data);
+                    const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
+
+                    console.log('restaurantsData', restaurantsData);
+
+                    // Con questa funzione filtriamo i ristoranti, aggiungendo all'array solo quelli che tra le tipologie hanno quelle con l'id ricercato
+                    for (let j = 0; j < restaurantsData.length; j++) {
+                        for (let i = 0; i < restaurantsData[j].types.length; i++) {
+                            if (restaurantsData[j].types[i].id == typeId) {
+                                this.restaurants.push(restaurantsData[j]); //Qui facciamo push del ristorante giusto nell'array
+                            }
+                        }
+                    };
+                    console.log('restaurants',this.restaurants);
+                });
         }
     }
 };
 </script>
 <template>
     <div class="container">
+        <form class="row justify-content-center" @submit.prevent="getRestaurants">
+            <select class="col-6" name="types" id="types" v-model="targetType">
+                <option 
+                 v-for="singleType in types" 
+                 :value="singleType"
+                >
+                    {{ singleType.name }}
+                </option>
+            </select>
+
+            <input type="submit" class="col-3">
+        </form>
         <div class="row g-3 mb-4">
             <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
                 <RestaurantCard :restaurant="restaurant" />
             </div>
         </div>
         
-        {/* <!-- <div class="row">
+        <!-- <div class="row">
             <div class="col">
                 <nav class="d-flex justify-content-center">
                     <ul class="pagination">
@@ -62,7 +100,7 @@ export default {
                     </ul>
                 </nav>
             </div>
-        </div> --> */}
+        </div> -->
     </div>
 </template>
 
