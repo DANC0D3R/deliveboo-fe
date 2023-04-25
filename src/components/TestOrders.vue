@@ -12,7 +12,9 @@ export default {
             client_address: '',
             client_phone: '',
             client_email: '',
-            notes: ''
+            notes: '',
+
+            dataScritta: ''
         }
     },
     methods: {
@@ -32,6 +34,14 @@ export default {
                 console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
             }); //Dopo il .then potremmo anche aggiungere un .catch per gli aventuali errori.
         },
+        dataStorage() {
+            localStorage.setItem('nome', this.client_name);
+        },
+        dataShow() {
+            const dataShow = localStorage.getItem('nome');
+
+            this.dataScritta = dataShow;
+        }
     }
 }
 </script>
@@ -39,14 +49,14 @@ export default {
 <template>
     <h1>Form di test</h1>
     <!-- In action ho inserito il nome della rotta alla quale spedire i dati, ma non so se sia davvero necessaria, dobbiamo verificare. -->
-    <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
+    <form action="./api/orders" method="POST" @submit.prevent="dataStorage()">
         <!-- Il v-model ci serve a prendere il valore inserito nell'input. Stavolta non usiamo il name, ma mettiamolo comunque. -->
         <!-- Il total_price per ora è solo un placeholder, poi dovremmo capire come fare per calcolarlo in base agli ordini fatti -->
-        <input v-model="total_price" id="total_price" type="number" placeholder="Es: 9.99" name="price" step="0.01" min="0.00">
+        <!-- <input v-model="total_price" id="total_price" type="number" placeholder="Es: 9.99" name="price" step="0.01" min="0.00"> -->
 
         <input v-model="client_name" type="text" name="client_name" placeholder="Scrivi il tuo nome">
 
-        <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
+        <!-- <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
 
         <input v-model="client_address" type="text" name="client_address" placeholder="Scrivi il tuo indirizzo">
 
@@ -54,10 +64,14 @@ export default {
 
         <input v-model="client_email" type="text" name="client_email" placeholder="Scrivi il tuo indirizzo email">
 
-        <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea>
+        <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea> -->
 
         <input type="submit" class="btn btn-success">
     </form>
+
+    <div class="border border-danger" style="height: 200px; width: 200px;" v-on:click="dataShow()">
+        {{ dataScritta }}
+    </div>
 </template>
 
 <style lang="scss" scoped>

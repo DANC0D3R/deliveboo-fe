@@ -20,7 +20,7 @@ export default {
 
 <template>
   <AppHeader />
-  <!-- <TestOrders /> -->
+   <TestOrders /> 
   <main>
     <router-view></router-view>
   </main>
