@@ -20,7 +20,8 @@ export default {
         },
         deleteData() {
             localStorage.clear(); //questo svuota localstorage
-            this.orderCart = [];
+            this.orderCart = []; //questo svuota l'array in data
+            this.store.order = []; //questo svuota lo store
         }
     }
 };
