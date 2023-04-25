@@ -38,18 +38,66 @@
                     }
                 });
                 console.log(this.getFoods)
-        } 
+            } 
         }
     };
 </script>
+
 <template>
-    
-        <!-- <div class="row g-3 mb-4">
-            <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-                {{ food.name }}>
+    <section class="container">
+        <div class="row justify-content-between">
+            <div v-for="food in store.foodsList.food" class="col-4 mb-3 card" style="width: 18rem;">
+                <img :src="food.img" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ food.name }}</h5>
+
+                    <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
+
+                </div>
+
+                <!-- Modal -->
+                <div v-for="food in store.foodsList.food" class="modal fade" :id="'food-'+food.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ food.name }}</h1>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="text-center mb-3">
+                                    <img :src="food.img" alt="" style="width: 22rem;">
+                                </div>
+
+                                <p>{{ food.description }}</p>
+
+                                <p><strong>Disponibilità:</strong> {{ food.availability }}</p>
+
+                                <span><strong>Vegano:</strong> {{ food.vegan }}</span>
+
+                                <span><strong>Vegetariano:</strong> {{ food.vegetarian }}</span>
+
+                                <p class="mt-3"><strong>Prezzo:</strong> {{ food.price }}€</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div> -->
-        <div v-for="food in store.foodsList.food">
-            {{ food.name }}
         </div>
+    </section>
+    
+    <!-- <div class="row g-3 mb-4">
+        <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+            {{ food.name }}>
+        </div>
+    </div> -->
+    <!-- <div v-for="food in store.foodsList.food">
+        {{ food.name }}
+    </div> -->
 </template>
