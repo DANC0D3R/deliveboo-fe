@@ -1,19 +1,25 @@
 <script>
+import {store} from "../../store.js"
 export default {
     name: 'CartTest',
     data() {
         return {
+            store,
             orderCart: []
         }
     },
     methods: {
         viewData() {
-            const oneOrder = JSON.parse(localStorage.getItem('order')); //recuperiamo i dati dal localstorage e li salviamo in una variabile
-            this.orderCart.push(oneOrder); //la variabile con i dati al suo interno viene pushata nell'array' orderCart
+            localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+            const oneOrder = JSON.parse(localStorage.getItem('order')); //recuperiamo i dati dal localstorage e li salviamo in una variabile, che diventerà un'array
+            console.log('oneOrder', oneOrder);
+            for (let i = 0; i < oneOrder.length; i++) { 
+                this.orderCart.push(oneOrder[i]); //ogni indice dell'array con i dati al suo interno viene pushato nell'array' orderCart
+            }
             console.log('orderCart', this.orderCart);
         },
         deleteData() {
-            localStorage.clear();
+            localStorage.clear(); //questo svuota localstorage
             this.orderCart = [];
         }
     }

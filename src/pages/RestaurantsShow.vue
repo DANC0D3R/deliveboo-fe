@@ -40,8 +40,9 @@
                 console.log(this.getFoods)
             },
             dataStorage(item) {
-                localStorage.setItem('order', JSON.stringify(item)); //i dati del piatto scelto vengono salvati nel localstorage
-                console.log('ordine aggiunto!')
+                this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
+                console.log('ordine aggiunto!');
+                console.log('order', this.store.order);
             }, 
         }
     };
