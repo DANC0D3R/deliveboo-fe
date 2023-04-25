@@ -38,7 +38,11 @@
                     }
                 });
                 console.log(this.getFoods)
-            } 
+            },
+            dataStorage(item) {
+                localStorage.setItem('order', JSON.stringify(item)); //i dati del piatto scelto vengono salvati nel localstorage
+                console.log('ordine aggiunto!')
+            }, 
         }
     };
 </script>
@@ -52,7 +56,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ food.name }}</h5>
 
-                    <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
+                    <div class="d-flex justify-content-between">
+                        <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
+    
+                        <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
+                        <button class="btn btn-warning" @click="dataStorage(food)">Aggiungi</button>
+                      
+                    </div>
 
                 </div>
 

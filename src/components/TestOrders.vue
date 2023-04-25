@@ -52,11 +52,11 @@ export default {
     <form action="./api/orders" method="POST" @submit.prevent="dataStorage()">
         <!-- Il v-model ci serve a prendere il valore inserito nell'input. Stavolta non usiamo il name, ma mettiamolo comunque. -->
         <!-- Il total_price per ora è solo un placeholder, poi dovremmo capire come fare per calcolarlo in base agli ordini fatti -->
-        <!-- <input v-model="total_price" id="total_price" type="number" placeholder="Es: 9.99" name="price" step="0.01" min="0.00"> -->
+        <input v-model="total_price" id="total_price" type="number" placeholder="Es: 9.99" name="price" step="0.01" min="0.00"> -->
 
         <input v-model="client_name" type="text" name="client_name" placeholder="Scrivi il tuo nome">
 
-        <!-- <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
+        <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
 
         <input v-model="client_address" type="text" name="client_address" placeholder="Scrivi il tuo indirizzo">
 
@@ -64,7 +64,7 @@ export default {
 
         <input v-model="client_email" type="text" name="client_email" placeholder="Scrivi il tuo indirizzo email">
 
-        <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea> -->
+        <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea>
 
         <input type="submit" class="btn btn-success">
     </form>
