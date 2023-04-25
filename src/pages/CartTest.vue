@@ -11,6 +11,10 @@ export default {
             const oneOrder = JSON.parse(localStorage.getItem('order')); //recuperiamo i dati dal localstorage e li salviamo in una variabile
             this.orderCart.push(oneOrder); //la variabile con i dati al suo interno viene pushata nell'array' orderCart
             console.log('orderCart', this.orderCart);
+        },
+        deleteData() {
+            localStorage.clear();
+            this.orderCart = [];
         }
     }
 };
@@ -23,7 +27,9 @@ export default {
                 Cart
             </div>
 
-            <button class="btn btn-primary col-4" v-on:click="viewData()">Processa ordine</button>
+            <button class="btn btn-primary col-3" v-on:click="viewData()">Processa ordine</button>
+
+            <button class="btn btn-danger col-3" v-on:click="deleteData()">Cancella ordine</button>
 
             <!-- per ogni oggetto presente nell'array orderCart, ne stampiamo una lista di dati -->
             <ul v-for="singleOrder in orderCart" class="col-12 text-center">
