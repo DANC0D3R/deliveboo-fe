@@ -9,17 +9,19 @@ export default {
         }
     },
     methods: {
-        viewData() {
-            let oneOrder = JSON.parse(localStorage.getItem('order')); //recuperiamo i dati dal localstorage e li salviamo in una variabile, che diventerà un'array
-            console.log('oneOrder', oneOrder);
-            // for (let i = 0; i < oneOrder.length; i++) { 
-            //     this.orderCart.push(oneOrder[i]); //ogni indice dell'array con i dati al suo interno viene pushato nell'array' orderCart
-            // }
-            // console.log('orderCart', this.orderCart);
+        refreshData() {
+            let refreshStorage = JSON.parse(localStorage.getItem('order'));
+            console.log('refreshstorange', refreshStorage);
+            if (refreshStorage) {
+                for (let i = 0; i < refreshStorage.length; i++) {
+                    this.store.order.push(refreshStorage[i]);
+                }
+                refreshStorage = null;
+            }
+            console.log('order', this.store.order);
         },
         deleteData() {
             localStorage.clear(); //questo svuota localstorage
-            // this.orderCart = []; //questo svuota l'array in data
             this.store.order = []; //questo svuota lo store
         }
     }
@@ -33,7 +35,7 @@ export default {
                 Cart
             </div>
 
-            <!-- <button class="btn btn-primary col-3" v-on:click="viewData()">Processa ordine</button> -->
+            <button v-if="store.order.length == 0" class="btn btn-primary col-3" v-on:click="refreshData()">Processa ordine</button>
 
             <button class="btn btn-danger col-3" v-on:click="deleteData()">Cancella ordine</button>
 

@@ -53,7 +53,7 @@
                 localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
                 console.log('ordine aggiunto!');
                 console.log('order', this.store.order);
-            }, 
+            },
         }
     };
 </script>
