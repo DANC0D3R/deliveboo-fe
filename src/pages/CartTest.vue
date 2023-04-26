@@ -36,7 +36,7 @@ export default {
             </div>
 
             <!-- se lo store si svuota per un refresh o altro, questo pulsante compare e permette di ripristinare lo store -->
-            <button v-if="store.order.length == 0" class="btn btn-primary col-3" v-on:click="refreshData()">Processa ordine</button>
+            <button v-if="store.order.length == 0" class="btn btn-primary col-3" v-on:click="refreshData()">Ricarica carrello</button>
 
             <!-- questo pulsante svuota il localstorage -->
             <button class="btn btn-danger col-3" v-on:click="deleteData()">Cancella ordine</button>
