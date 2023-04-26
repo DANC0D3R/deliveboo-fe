@@ -20,6 +20,12 @@ export default {
             }
             console.log('order', this.store.order);
         },
+        deleteSingleOrder(item) {
+            const targetIndex = this.store.order.indexOf(item); //troviamo l'index del singolo piatto
+            this.store.order.splice(targetIndex, 1); //togliamo quel piatto dall'array
+            console.log('newArray', this.store.order);
+            localStorage.setItem('order', JSON.stringify(this.store.order)); //sovrascriviamo il localstorage
+        },
         deleteData() {
             localStorage.clear(); //questo svuota localstorage
             this.store.order = []; //questo svuota lo store
@@ -48,6 +54,8 @@ export default {
                 <li>{{ singleOrder.price }}</li>
 
                 <li>{{ singleOrder.description }}</li>
+
+                <button class="btn btn-danger" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
             </ul>
        
         </div>
