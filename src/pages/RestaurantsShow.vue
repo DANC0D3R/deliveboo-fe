@@ -38,7 +38,22 @@
                     }
                 });
                 console.log(this.getFoods)
-            } 
+            },
+            dataStorage(item) {
+                this.store.order = []; //svuotiamo lo store
+                let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
+                console.log('checkstorage', checkStorage);
+                if (checkStorage) {
+                    for (let i = 0; i < checkStorage.length; i++) {
+                        this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
+                    }
+                    checkStorage = null; //resetta checkstorage
+                }
+                this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
+                localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+                console.log('ordine aggiunto!');
+                console.log('order', this.store.order);
+            },
         }
     };
 </script>
@@ -52,7 +67,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ food.name }}</h5>
 
-                    <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
+                    <div class="d-flex justify-content-between">
+                        <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
+    
+                        <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
+                        <button class="btn btn-warning" @click="dataStorage(food)">Aggiungi</button>
+                      
+                    </div>
 
                 </div>
 

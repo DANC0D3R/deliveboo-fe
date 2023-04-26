@@ -12,6 +12,10 @@ export default {
                     routeName: 'restaurants-index',
                     label: 'Ristoranti'
                 },
+                {
+                    routeName: 'cart',
+                    label: 'cart'
+                },
                 // {
                 //     routeName: 'restaurants-index',
                 //     label: 'Blog'
