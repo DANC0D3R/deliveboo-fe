@@ -40,14 +40,14 @@
                 console.log(this.getFoods)
             },
             dataStorage(item) {
-                this.store.order = [];
+                this.store.order = []; //svuotiamo lo store
                 let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
                 console.log('checkstorage', checkStorage);
                 if (checkStorage) {
                     for (let i = 0; i < checkStorage.length; i++) {
-                        this.store.order.push(checkStorage[i]);
+                        this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
                     }
-                    checkStorage = null;
+                    checkStorage = null; //resetta checkstorage
                 }
                 this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
                 localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage

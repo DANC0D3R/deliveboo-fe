@@ -10,13 +10,13 @@ export default {
     },
     methods: {
         refreshData() {
-            let refreshStorage = JSON.parse(localStorage.getItem('order'));
+            let refreshStorage = JSON.parse(localStorage.getItem('order')); //riprende i dati del localstorage
             console.log('refreshstorange', refreshStorage);
             if (refreshStorage) {
                 for (let i = 0; i < refreshStorage.length; i++) {
-                    this.store.order.push(refreshStorage[i]);
+                    this.store.order.push(refreshStorage[i]); //se refresh storage ha del contenuto, lo pusha nello store
                 }
-                refreshStorage = null;
+                refreshStorage = null; //resetta refreshstorage
             }
             console.log('order', this.store.order);
         },
@@ -35,8 +35,10 @@ export default {
                 Cart
             </div>
 
+            <!-- se lo store si svuota per un refresh o altro, questo pulsante compare e permette di ripristinare lo store -->
             <button v-if="store.order.length == 0" class="btn btn-primary col-3" v-on:click="refreshData()">Processa ordine</button>
 
+            <!-- questo pulsante svuota il localstorage -->
             <button class="btn btn-danger col-3" v-on:click="deleteData()">Cancella ordine</button>
 
             <!-- per ogni oggetto presente nell'array orderCart, ne stampiamo una lista di dati -->
