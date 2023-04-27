@@ -69,7 +69,7 @@ export default {
 <template>
     <div class="container">
         <div class="row text-center mb-3">
-            <h2>Cerca un ristorante per tipologia</h2>
+            <h2>Cerca un ristorante per tipo</h2>
         </div>
         <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
             <select class="col-6" name="types" id="types" v-model="targetType">
@@ -87,20 +87,20 @@ export default {
         </div>
 
         <!-- <div class="row">
-                                                                                                                                                <div class="col">
-                                                                                                                                                    <nav class="d-flex justify-content-center">
-                                                                                                                                                        <ul class="pagination">
-                                                                                                                                                            <li class="page-item" v-for="i in lastPage">
-                                                                                                                                                                <button class="page-link" :class="{
-                                                                                                                                                                    active: currentPage == i
-                                                                                                                                                                }" @click="changePage(i)">
-                                                                                                                                                                    {{ i }}
-                                                                                                                                                                </button>
-                                                                                                                                                            </li>
-                                                                                                                                                        </ul>
-                                                                                                                                                    </nav>
-                                                                                                                                                </div>
-                                                                                                                                            </div> -->
+                                                                                                                                                        <div class="col">
+                                                                                                                                                            <nav class="d-flex justify-content-center">
+                                                                                                                                                                <ul class="pagination">
+                                                                                                                                                                    <li class="page-item" v-for="i in lastPage">
+                                                                                                                                                                        <button class="page-link" :class="{
+                                                                                                                                                                            active: currentPage == i
+                                                                                                                                                                        }" @click="changePage(i)">
+                                                                                                                                                                            {{ i }}
+                                                                                                                                                                        </button>
+                                                                                                                                                                    </li>
+                                                                                                                                                                </ul>
+                                                                                                                                                            </nav>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div> -->
     </div>
 </template>
 

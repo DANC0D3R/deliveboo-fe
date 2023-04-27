@@ -62,7 +62,7 @@ export default {
     <section class="container">
         <h2 class="text-center mb-4">Cosa ti portiamo oggi?</h2>
         <div class="row">
-            <div v-for="food in store.foodsList.food" class="col-4 mb-4 card ms-4 p-0" style="width: 18rem;">
+            <div v-for="food in store.foodsList.food" class="card-container col-4 mb-4 card ms-4 p-0" style="width: 18rem;">
                 <a :href="'#food-' + food.id" data-bs-toggle="modal">
                     <img :src="food.img" class="card-img-top" alt="...">
                 </a>
@@ -74,17 +74,11 @@ export default {
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
                             <span class="ms-1" v-if="food.vegan"><i
                                     class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
-                        </div>
                     </div>
-                    <!-- <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i> Il piatto è
-                                                        vegetariano</span>
-                                                    <span v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
-                                                        Il piatto è vegano
-                </span>
-                <span v-else class="text-white">Nessuna opzione veg</span> -->
+                </div>
                 <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
 
-                    <div class="">
+                    <div class="button">
                     <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
@@ -140,16 +134,24 @@ export default {
     </section>
 
     <!-- <div class="row g-3 mb-4">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ food.name }}>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ food.name }}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
     <!-- <div v-for="food in store.foodsList.food">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ food.name }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ food.name }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
 </template>
 
 <style lang="scss" scoped>
+.card-container {
+    min-height: 360px;
+}
+
+.button {
+    // min-height: 200px;
+}
+
 a {
     min-height: 60%;
     max-height: 60%;
