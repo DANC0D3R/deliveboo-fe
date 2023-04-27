@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import {store} from "../../store"
+import {store} from "../../store";
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'RestaurantsIndex',
@@ -12,19 +12,12 @@ export default {
             types: [],
             restaurants: [],
             targetType: '',
-            // currentPage: 1,
-            // lastPage: 1
         };
     },
     created() {
         this.getTypes();
     },
     methods: {
-        
-        // changePage(page) {
-        //     this.currentPage = page;
-        //     this.getPosts();
-        // },
         targetTypeCheck() {
             console.log(this.targetType);
         },
@@ -33,7 +26,7 @@ export default {
                 .get('http://127.0.0.1:8000/api/types', {
                 })
                 .then(response => {
-                    console.log(response.data);
+                    console.log('tipologie', response.data);
                     this.types = response.data.data;
                 });
         },
@@ -47,7 +40,7 @@ export default {
 
                 })
                 .then(response => {
-                    console.log(response.data);
+                    console.log('ristoranti', response.data);
                     const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
 
                     console.log('restaurantsData', restaurantsData);
