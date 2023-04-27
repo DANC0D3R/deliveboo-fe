@@ -1,30 +1,30 @@
 <script>
-    import axios from 'axios';
-    import {store} from "../../store.js"
-    import FoodCard from '../components/FoodCard.vue';
-    export default {
-        name: 'RestaurantsShow',
-        components:{
-            FoodCard
-        },
-        data() {
-            return {
-                store,
-                restaurants: [],
-                // currentPage: 1,
-                // lastPage: 1
-            };
-        },
-        mounted() {
-            this.getFoods(store.selectedRestaurant);
-        },
-        methods: {
-            // changePage(page) {
-            //     this.currentPage = page;
-            //     this.getPosts();
-            // },
-            getFoods(restaurantId) {
-                console.log("papa", restaurantId);
+import axios from 'axios';
+import { store } from "../../store.js"
+import FoodCard from '../components/FoodCard.vue';
+export default {
+    name: 'RestaurantsShow',
+    components: {
+        FoodCard
+    },
+    data() {
+        return {
+            store,
+            restaurants: [],
+            // currentPage: 1,
+            // lastPage: 1
+        };
+    },
+    mounted() {
+        this.getFoods(store.selectedRestaurant);
+    },
+    methods: {
+        // changePage(page) {
+        //     this.currentPage = page;
+        //     this.getPosts();
+        // },
+        getFoods(restaurantId) {
+            console.log("papa", restaurantId);
             axios
                 .get('http://127.0.0.1:8000/api/foods/' + restaurantId)
                 .then(response => {
@@ -37,48 +37,66 @@
                         this.$router.push({ name: 'not-found' });
                     }
                 });
-                console.log(this.getFoods)
-            },
-            dataStorage(item) {
-                this.store.order = []; //svuotiamo lo store
-                let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
-                console.log('checkstorage', checkStorage);
-                if (checkStorage) {
-                    for (let i = 0; i < checkStorage.length; i++) {
-                        this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
-                    }
-                    checkStorage = null; //resetta checkstorage
+            console.log(this.getFoods)
+        },
+        dataStorage(item) {
+            this.store.order = []; //svuotiamo lo store
+            let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
+            console.log('checkstorage', checkStorage);
+            if (checkStorage) {
+                for (let i = 0; i < checkStorage.length; i++) {
+                    this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
                 }
-                this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
-                localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
-                console.log('ordine aggiunto!');
-                console.log('order', this.store.order);
-            },
-        }
-    };
+                checkStorage = null; //resetta checkstorage
+            }
+            this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
+            localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+            console.log('ordine aggiunto!');
+            console.log('order', this.store.order);
+        },
+    }
+};
 </script>
 
 <template>
     <section class="container">
-        <div class="row justify-content-between">
-            <div v-for="food in store.foodsList.food" class="col-4 mb-3 card" style="width: 18rem;">
-                <img :src="food.img" class="card-img-top" alt="...">
+        <h2 class="text-center mb-4">Cosa ti portiamo oggi?</h2>
+        <div class="row">
+            <div v-for="food in store.foodsList.food" class="col-4 mb-4 card ms-4 p-0" style="width: 18rem;">
+                <a :href="'#food-' + food.id" data-bs-toggle="modal">
+                    <img :src="food.img" class="card-img-top" alt="...">
+                </a>
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ food.name }}</h5>
-
                     <div class="d-flex justify-content-between">
-                        <a :href="'#food-'+food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a>
-    
+                        <h5 class="card-title">{{ food.name }}</h5>
+                        <div>
+                            <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
+                            <span class="ms-1" v-if="food.vegan"><i
+                                    class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
+                        </div>
+                    </div>
+                    <!-- <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i> Il piatto è
+                                                        vegetariano</span>
+                                                    <span v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
+                                                        Il piatto è vegano
+                </span>
+                <span v-else class="text-white">Nessuna opzione veg</span> -->
+                <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
+
+                    <div class="">
+                    <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
+
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                        <button class="btn btn-warning" @click="dataStorage(food)">Aggiungi</button>
-                      
+                        <button class="btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al carrello</button>
+
                     </div>
 
                 </div>
 
                 <!-- Modal -->
-                <div v-for="food in store.foodsList.food" class="modal fade" :id="'food-'+food.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div v-for="food in store.foodsList.food" class="modal fade" :id="'food-' + food.id" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -96,9 +114,17 @@
 
                                 <p><strong>Disponibilità:</strong> {{ food.availability }}</p>
 
-                                <span><strong>Vegano:</strong> {{ food.vegan }}</span>
+                                <!-- <span><strong>Vegano:</strong> {{ food.vegan }}</span> -->
 
-                                <span><strong>Vegetariano:</strong> {{ food.vegetarian }}</span>
+                                <div v-if="food.vegetarian">
+                                    <i class="fa-solid fa-leaf type text-success"></i> Il piatto è
+                                    vegetariano
+                                </div>
+                                <div v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
+                                    Il piatto è vegano
+                                </div>
+                                <!-- <span v-else class="text-white">Nessuna opzione veg</span> -->
+                                <!-- <span><strong>Vegetariano:</strong> {{ food.vegetarian }}</span> -->
 
                                 <p class="mt-3"><strong>Prezzo:</strong> {{ food.price }}€</p>
                             </div>
@@ -112,13 +138,24 @@
             </div>
         </div>
     </section>
-    
+
     <!-- <div class="row g-3 mb-4">
-        <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-            {{ food.name }}>
-        </div>
-    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ food.name }}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
     <!-- <div v-for="food in store.foodsList.food">
-        {{ food.name }}
-    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ food.name }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
 </template>
+
+<style lang="scss" scoped>
+a {
+    min-height: 60%;
+    max-height: 60%;
+}
+
+img {
+    height: 100%;
+}
+</style>

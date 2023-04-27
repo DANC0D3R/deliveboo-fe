@@ -87,25 +87,21 @@ export default {
         </div>
 
         <!-- <div class="row">
-                                                                                                                                            <div class="col">
-                                                                                                                                                <nav class="d-flex justify-content-center">
-                                                                                                                                                    <ul class="pagination">
-                                                                                                                                                        <li class="page-item" v-for="i in lastPage">
-                                                                                                                                                            <button class="page-link" :class="{
-                                                                                                                                                                active: currentPage == i
-                                                                                                                                                            }" @click="changePage(i)">
-                                                                                                                                                                {{ i }}
-                                                                                                                                                            </button>
-                                                                                                                                                        </li>
-                                                                                                                                                    </ul>
-                                                                                                                                                </nav>
-                                                                                                                                            </div>
-                                                                                                                                        </div> -->
+                                                                                                                                                <div class="col">
+                                                                                                                                                    <nav class="d-flex justify-content-center">
+                                                                                                                                                        <ul class="pagination">
+                                                                                                                                                            <li class="page-item" v-for="i in lastPage">
+                                                                                                                                                                <button class="page-link" :class="{
+                                                                                                                                                                    active: currentPage == i
+                                                                                                                                                                }" @click="changePage(i)">
+                                                                                                                                                                    {{ i }}
+                                                                                                                                                                </button>
+                                                                                                                                                            </li>
+                                                                                                                                                        </ul>
+                                                                                                                                                    </nav>
+                                                                                                                                                </div>
+                                                                                                                                            </div> -->
     </div>
 </template>
 
-<style scoped lang="scss">
-.row.g-4.mb-4 {
-    // min-height: 20rem;
-}
-</style>
+<style scoped lang="scss"></style>
