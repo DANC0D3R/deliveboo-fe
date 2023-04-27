@@ -51,8 +51,16 @@
                 }
                 this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
                 localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
-                console.log('ordine aggiunto!');
+                
+                alert('Piatto aggiunto!');
+
                 console.log('order', this.store.order);
+
+                if (this.store.order.includes(item)) {
+                    let count = 0;
+                    this.store.order.forEach((element) => (element === item && count++));
+                    return count;
+                }
             },
         }
     };

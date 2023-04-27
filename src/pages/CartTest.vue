@@ -10,6 +10,7 @@ export default {
     },
     methods: {
         refreshData() {
+            this.store.order = []; //svuotiamo l'array per evitare raddoppi
             let refreshStorage = JSON.parse(localStorage.getItem('order')); //riprende i dati del localstorage
             console.log('refreshstorange', refreshStorage);
             if (refreshStorage) {
