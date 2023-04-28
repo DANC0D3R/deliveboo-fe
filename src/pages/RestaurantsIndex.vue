@@ -48,8 +48,7 @@ export default {
             axios
                 .get('http://127.0.0.1:8000/api/restaurants', {
                     params: {
-                        types: restaurants[0].types[1]
-                       // page: this.currentPage
+                        page: this.currentPage
                     }
                 })
                 .then(response => {
