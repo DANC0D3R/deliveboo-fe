@@ -14,16 +14,13 @@ export default {
         <div class="row d-flex justify-content-between align-items-center">
 
             <div class="col-md-4">
-                <a href="#" class="me-2">
-                    Accedi
-                </a>
-                <a href="#">
-                    Registrati
+                <a href="http://127.0.0.1:8000/" class="me-2">
+                    Sei un ristoratore? Accedi o Registrati
                 </a>
             </div>
 
             <div class="col-md-4  d-flex justify-content-center align-items-center">
-                <i class="fa-solid fa-burger me-2 logo"></i>
+                <i class="fa-solid fa-burger me-2"></i>
                 <span><strong>
                     Deliveroo
                 </strong></span>
@@ -31,7 +28,7 @@ export default {
 
             <div class="col-md-4 text-end">
                 <a href="#">
-                    Contattaci
+                    Carrello
                 </a>
             </div>
         
@@ -49,9 +46,6 @@ export default {
     top:0;left:0;
     z-index: 30;
 
-    .logo{
-        font-family: Arial, Helvetica, sans-serif !important;
-    }
 }
 
 </style>

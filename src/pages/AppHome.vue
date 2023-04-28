@@ -5,6 +5,7 @@ import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'AppHome',
     components: {
+        RestaurantCard,
     },
     data() {
         return {
@@ -42,6 +43,11 @@ export default {
 
                     this.lastPage = response.data.restaurants.last_page
                 });
+        },
+
+        onMenuClick(restaurantId) {
+            store.selectedRestaurant = restaurantId;
+            console.log("Ciao mamma", store.selectedRestaurant);
         }
     }
 };
@@ -61,90 +67,24 @@ export default {
         </div>
 
         <!-- RISTORANTI -->
-        <div class="row">
-            <div v-for="singleRestaurant in restaurants" class="col-4 mb-2">
-                <div class="restaurant-card mb-4 shadow">
-
-                    <div class="img-container">
-                        <img :src="singleRestaurant.img" :alt="singleRestaurant.name">
-                    </div>
-                    
-                    <h4>
-                        {{ singleRestaurant.name }}
-                    </h4>
-
-                    <p>
-                        <i class="fa-solid fa-location-dot icons"></i>
-                        {{ singleRestaurant.address }}
-                    </p>
-
-                    <div>
-                        <span>Tipologia</span>
-                        <ul>
-                            <li v-for="singleType in singleRestaurant.types">
-                                {{ singleType.name }}
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="scopri-button">
-                        Scopri il ristorante
-                    </div>
-
-                </div>
+        <div class="row g-4">
+            <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
+                <RestaurantCard :restaurant="restaurant" />
             </div>
         </div>
 
         <!-- PAGINE -->
-        <div class="d-flex justify-content-center mb-4">
+        <!-- <div class="d-flex justify-content-center mb-4">
             <div class="page-button" v-for="singlePage in lastPage">
                 <button @click="changePage(singlePage)">
                     {{ singlePage }}
                 </button>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-.restaurant-card{
-
-    padding: 1rem;
-    border-radius: 0 30px 0 30px;
-    // border:2px solid $main-orange;
-    background-color: $main-yellow;
-    position: relative;
-
-    .img-container{
-        height: 200px;
-        width: 100%;
-        margin-bottom: 2rem;
-
-        img{
-            border-radius: 0 30px 0 30px ;
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    h4{
-        font-weight: 600;
-    }
-
-    ul{
-        li{
-            list-style-type:disc;
-            list-style-type: $main-orange;
-        }
-    }
-
-    .scopri-button{
-        @include button-base;
-        position:absolute;
-        bottom: -15px;
-        right: 15px;
-    }
-}
 </style>

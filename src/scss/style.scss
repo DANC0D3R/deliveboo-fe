@@ -9,6 +9,10 @@ a{
     text-decoration: none;
     color: black;
 }
+a:hover{
+    color:black;
+    text-decoration: underline;
+}
 
 // COLORI
 $main-orange: #FF8400;
