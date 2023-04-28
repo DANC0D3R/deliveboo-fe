@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import {store} from "../../store"
+import { store } from "../../store"
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'RestaurantsIndex',
@@ -20,7 +20,7 @@ export default {
         this.getTypes();
     },
     methods: {
-        
+
         // changePage(page) {
         //     this.currentPage = page;
         //     this.getPosts();
@@ -60,7 +60,7 @@ export default {
                             }
                         }
                     };
-                    console.log('restaurants',this.restaurants);
+                    console.log('restaurants', this.restaurants);
                 });
         }
     }
@@ -68,41 +68,40 @@ export default {
 </script>
 <template>
     <div class="container">
-        <form class="row justify-content-center" @submit.prevent="getRestaurants">
+        <div class="row text-center mb-3">
+            <h2>Cerca un ristorante per tipo</h2>
+        </div>
+        <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
             <select class="col-6" name="types" id="types" v-model="targetType">
-                <option 
-                 v-for="singleType in types" 
-                 :value="singleType"
-                >
+                <option v-for="singleType in types" :value="singleType">
                     {{ singleType.name }}
                 </option>
             </select>
 
-            <input type="submit" class="col-3">
+            <input type="submit" class="col-1" value="Cerca">
         </form>
-        <div class="row g-3 mb-4">
+        <div class="row g-4 mb-4">
             <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
                 <RestaurantCard :restaurant="restaurant" />
             </div>
         </div>
-        
+
         <!-- <div class="row">
-            <div class="col">
-                <nav class="d-flex justify-content-center">
-                    <ul class="pagination">
-                        <li class="page-item" v-for="i in lastPage">
-                            <button class="page-link" :class="{
-                                active: currentPage == i
-                            }" @click="changePage(i)">
-                                {{ i }}
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div> -->
+                                                                                                                                                        <div class="col">
+                                                                                                                                                            <nav class="d-flex justify-content-center">
+                                                                                                                                                                <ul class="pagination">
+                                                                                                                                                                    <li class="page-item" v-for="i in lastPage">
+                                                                                                                                                                        <button class="page-link" :class="{
+                                                                                                                                                                            active: currentPage == i
+                                                                                                                                                                        }" @click="changePage(i)">
+                                                                                                                                                                            {{ i }}
+                                                                                                                                                                        </button>
+                                                                                                                                                                    </li>
+                                                                                                                                                                </ul>
+                                                                                                                                                            </nav>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div> -->
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped lang="scss"></style>
