@@ -74,8 +74,8 @@ export default {
                         <h5 class="card-title">{{ food.name }}</h5>
                         <div>
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
-                            <span class="ms-1" v-if="food.vegan"><i
-                                class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
+                            <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
+                        </span>
                     </div>
                 </div>
                 <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
@@ -136,18 +136,22 @@ export default {
     </section>
 
     <!-- <div class="row g-3 mb-4">
-        <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-            {{ food.name }}>
-        </div>
-    </div>
-    <div v-for="food in store.foodsList.food">
-        {{ food.name }}
-    </div> -->
+                                <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                    {{ food.name }}>
+                                </div>
+                            </div>
+                            <div v-for="food in store.foodsList.food">
+                                {{ food.name }}
+                            </div> -->
 </template>
 
 <style lang="scss" scoped>
 .card-container {
     min-height: 360px;
+
+    .card-title {
+        font-size: 1.1rem;
+    }
 }
 
 .button {
