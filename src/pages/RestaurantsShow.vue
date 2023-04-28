@@ -11,6 +11,7 @@
             return {
                 store,
                 restaurants: [],
+                doubles: []
                 // currentPage: 1,
                 // lastPage: 1
             };
@@ -49,6 +50,7 @@
                 console.log(this.getFoods)
             },
             dataStorage(item) {
+                // Parte contatore---------------------------------------------------------------------
                 let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
 
                 let checkCounter = JSON.parse(localStorage.getItem('counter'));
@@ -72,9 +74,9 @@
 
                 console.log('plateCount', this.store.plateCount);
 
+                // Parte ordine---------------------------------------------------------------------
                 this.store.order = []; //svuotiamo lo store
                 let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
-                console.log('checkstorage', checkStorage);
                 
                 if (checkStorage) {
                     for (let i = 0; i < checkStorage.length; i++) {
@@ -83,8 +85,23 @@
                     checkStorage = null; //resetta checkstorage
                 }
 
-                this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
-                localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+                const itemId = item.id; //recupero l'id del piatto
+                let flag = false; //setto una flag di controllo
+                for(let i = 0; i < this.store.order.length; i++) {
+                    if(this.store.order[i].id == itemId) {
+                        flag = true; //verifico se il piatto è già nell'array o meno
+                    }
+                }
+
+                if(flag == false) {
+                    this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
+                    localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+                    console.log('order', this.store.order);
+                }
+                else {
+                    this.doubles.push(item); //pusho il piatto doppione in un altro array
+                    console.log('doubles', this.doubles);
+                }
 
                 alert('Piatto aggiunto!');
             },

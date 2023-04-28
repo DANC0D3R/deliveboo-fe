@@ -56,6 +56,8 @@ export default {
 
                 <li>{{ singleOrder.description }}</li>
 
+                <p>Quantità: {{ store.plateCount['food-' + singleOrder.id] }}</p>
+
                 <button class="btn btn-danger" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
             </ul>
        
