@@ -12,8 +12,17 @@ export default {
     methods: {
         refreshData() {
             this.store.order = []; //svuotiamo l'array per evitare raddoppi
+            this.store.plateCount = {};
             let refreshStorage = JSON.parse(localStorage.getItem('order')); //riprende i dati del localstorage
-            console.log('refreshstorange', refreshStorage);
+            let refreshCounter = JSON.parse(localStorage.getItem('counter'));
+
+            if (refreshCounter) {
+                this.store.plateCount = {...refreshCounter};
+                localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
+                
+                refreshCounter = null;
+            }
+
             if (refreshStorage) {
                 this.totalPrice = 0; //azzera il prezzo totale
                 for (let i = 0; i < refreshStorage.length; i++) {
@@ -24,30 +33,30 @@ export default {
                 }
                 refreshStorage = null; //resetta refreshstorage
             }
-            console.log('order', this.store.order);
         },
         deleteSingleOrder(item) {
             const targetIndex = this.store.order.indexOf(item); //troviamo l'index del singolo piatto
             this.totalPrice -= parseFloat(item.price); //sottraiamo il prezzo del piatto eliminato dal prezzo totale
             this.store.order.splice(targetIndex, 1); //togliamo quel piatto dall'array
-            console.log('newArray', this.store.order);
             localStorage.setItem('order', JSON.stringify(this.store.order)); //sovrascriviamo il localstorage
         },
         deleteData() {
             localStorage.clear(); //questo svuota localstorage
             this.store.order = []; //questo svuota lo store
+            this.store.plateCount = {};
         },
-        increaseQuantity(index) {
-            this.store.plateCount['food-' + index] ++;
-            console.log('plateCount+', this.store.plateCount['food-' + index]);
+        increaseQuantity(item) {
+            this.store.plateCount['food-' + item.id] ++; //aumenta di 1 il contatore del piatto
+            this.totalPrice += parseFloat(item.price); //aumenta il prezzo totale
+            localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
             this.refreshData();
         },
         decreaseQuantity(item) {
-            this.store.plateCount['food-' + item.id] --;
-            console.log('plateCount-', this.store.plateCount['food-' + item.id]);
+            this.store.plateCount['food-' + item.id] --; //decrementa di 1 il contatore del piatto
+            localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
             
             if(this.store.plateCount['food-' + item.id] == 0) {
-                this.deleteSingleOrder(item);
+                this.deleteSingleOrder(item); //se il contatore del piatto raggiunge 0, si cancella il piatto
             }
             else {
                 this.refreshData();
@@ -84,7 +93,7 @@ export default {
                 
                 <button class="btn btn-danger mx-2" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
                 
-                <button class="btn btn-success" v-on:click="increaseQuantity(singleOrder.id)">+</button>
+                <button class="btn btn-success" v-on:click="increaseQuantity(singleOrder)">+</button>
             </ul>
        
         </div>
