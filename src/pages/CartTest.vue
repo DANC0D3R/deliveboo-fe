@@ -42,10 +42,16 @@ export default {
             console.log('plateCount+', this.store.plateCount['food-' + index]);
             this.refreshData();
         },
-        decreaseQuantity(index) {
-            this.store.plateCount['food-' + index] --;
-            console.log('plateCount-', this.store.plateCount['food-' + index]);
-            this.refreshData();
+        decreaseQuantity(item) {
+            this.store.plateCount['food-' + item.id] --;
+            console.log('plateCount-', this.store.plateCount['food-' + item.id]);
+            
+            if(this.store.plateCount['food-' + item.id] == 0) {
+                this.deleteSingleOrder(item);
+            }
+            else {
+                this.refreshData();
+            }
         }
     },
     mounted() {
@@ -74,7 +80,7 @@ export default {
 
                 <p>Quantità: {{ store.plateCount['food-' + singleOrder.id] }}</p>
 
-                <button class="btn btn-warning" v-on:click="decreaseQuantity(singleOrder.id)">-</button>
+                <button class="btn btn-warning" v-on:click="decreaseQuantity(singleOrder)">-</button>
                 
                 <button class="btn btn-danger mx-2" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
                 
