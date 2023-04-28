@@ -87,6 +87,8 @@ export default {
 
             <input type="submit" class="col-1" value="Cerca">
         </form>
+
+        <!-- Ristoranti -->
         <div class="row g-4 mb-4">
             <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
                 <RestaurantCard :restaurant="restaurant" />
