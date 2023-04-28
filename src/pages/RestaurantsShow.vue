@@ -1,7 +1,7 @@
 <script>
-import axios from 'axios';
+import axios from 'axios'
 import { store } from "../../store.js"
-import FoodCard from '../components/FoodCard.vue';
+import FoodCard from '../components/FoodCard.vue'
 export default {
     name: 'RestaurantsShow',
     components: {
