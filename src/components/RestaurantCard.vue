@@ -17,7 +17,7 @@ export default {
 };
 </script>
 <template>
-    <div class="card h-100">
+    <div class="card h-100 shadow rounded">
 
         <div class="card-body position-relative px-0 pt-0 ">
             <a href="">
@@ -35,7 +35,7 @@ export default {
             </div>
 
             <router-link :to="{ name: 'restaurants-show', }" @click="onMenuClick(restaurant.id)"
-                class="btn btn-warning rounded-0 w-100 position-absolute bottom-0 start-50 translate-middle-x">
+                class="btn btn-dark rounded-0 w-100 position-absolute bottom-0 start-50 translate-middle-x">
                 Visita il nostro menù
             </router-link>
         </div>
