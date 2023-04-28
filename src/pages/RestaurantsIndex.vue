@@ -12,12 +12,22 @@ export default {
             types: [],
             restaurants: [],
             targetType: '',
+            currentPage: 1,
+            lastPage: 1,
         };
     },
     created() {
         this.getTypes();
     },
     methods: {
+        changePage(page){
+            // 1. cambio la pagina
+            this.currentPage = page;
+
+            //2. richiamo la funzione per mostrare i ristoranti
+            this.getRestaurants();
+        },
+
         targetTypeCheck() {
             console.log(this.targetType);
         },
@@ -37,11 +47,16 @@ export default {
 
             axios
                 .get('http://127.0.0.1:8000/api/restaurants', {
-
+                    params: {
+                        types: restaurants[0].types[1]
+                       // page: this.currentPage
+                    }
                 })
                 .then(response => {
                     console.log('ristoranti', response.data);
                     const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
+
+                    this.lastPage = response.data.restaurants.last_page
 
                     console.log('restaurantsData', restaurantsData);
 
@@ -73,6 +88,7 @@ export default {
 
             <input type="submit" class="col-3">
         </form>
+
         <div class="row g-3 mb-4">
             <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
                 <RestaurantCard :restaurant="restaurant" />
@@ -94,6 +110,15 @@ export default {
                 </nav>
             </div>
         </div> -->
+
+        <!-- PAGINE -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="page-button" v-for="singlePage in lastPage">
+                <button @click="changePage(singlePage)">
+                    {{ singlePage }}
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
