@@ -5,7 +5,8 @@ export default {
     data() {
         return {
             store,
-            orderCart: []
+            orderCart: [],
+            totalPrice: 0
         }
     },
     methods: {
@@ -14,8 +15,10 @@ export default {
             let refreshStorage = JSON.parse(localStorage.getItem('order')); //riprende i dati del localstorage
             console.log('refreshstorange', refreshStorage);
             if (refreshStorage) {
+                this.totalPrice = 0; //azzera il prezzo totale
                 for (let i = 0; i < refreshStorage.length; i++) {
                     this.store.order.push(refreshStorage[i]); //se refresh storage ha del contenuto, lo pusha nello store
+                    this.totalPrice += parseFloat(refreshStorage[i].price); //aggiorna il prezzo totale con il prezzo di ogni ordine
                 }
                 refreshStorage = null; //resetta refreshstorage
             }
@@ -23,6 +26,7 @@ export default {
         },
         deleteSingleOrder(item) {
             const targetIndex = this.store.order.indexOf(item); //troviamo l'index del singolo piatto
+            this.totalPrice -= parseFloat(item.price); //sottraiamo il prezzo del piatto eliminato dal prezzo totale
             this.store.order.splice(targetIndex, 1); //togliamo quel piatto dall'array
             console.log('newArray', this.store.order);
             localStorage.setItem('order', JSON.stringify(this.store.order)); //sovrascriviamo il localstorage
@@ -62,6 +66,7 @@ export default {
             </ul>
        
         </div>
+        <div>Prezzo totale {{ totalPrice }} €</div>
     </div>
 </template>
 
