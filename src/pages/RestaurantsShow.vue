@@ -17,6 +17,15 @@
         },
         mounted() {
             this.getFoods(store.selectedRestaurant);
+
+            // cerca se esiste un valore salvato nel localStorage per store.plateCount
+            let savedCounter = JSON.parse(localStorage.getItem('counter'));
+            if (savedCounter && typeof savedCounter === 'object') {
+            store.plateCount = savedCounter;
+            } else {
+            store.plateCount = {};
+            }
+            this.getFoods(store.selectedRestaurant);
         },
         methods: {
             // changePage(page) {
@@ -39,17 +48,19 @@
                 });
                 console.log(this.getFoods)
             },
-            dataStorage(item) {  
+            dataStorage(item) {
                 let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
 
                 let checkCounter = JSON.parse(localStorage.getItem('counter'));
                 console.log('checkCounter', checkCounter);
-                if (checkCounter) {
+                if (checkCounter && Array.isArray(checkCounter)) { // controlla se l'array esiste
                     checkCounter.forEach(singleCount => {
-                        console.log('singleCount', singleCount);
+                    console.log('singleCount', singleCount);
                     });
                 }
-
+                else {
+                    checkCounter = []; // se l'array non esite lo inizializza, vuoto
+                }
                 if (target in this.store.plateCount == true) {
                     this.store.plateCount[target] ++; //se la chiave esiste già, verrà aumentato di 1 il suo valore
                     localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
@@ -64,7 +75,7 @@
                 this.store.order = []; //svuotiamo lo store
                 let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
                 console.log('checkstorage', checkStorage);
-
+                
                 if (checkStorage) {
                     for (let i = 0; i < checkStorage.length; i++) {
                         this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
