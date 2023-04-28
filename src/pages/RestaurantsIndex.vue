@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import { store } from "../../store"
+import {store} from "../../store";
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'RestaurantsIndex',
@@ -12,19 +12,22 @@ export default {
             types: [],
             restaurants: [],
             targetType: '',
-            // currentPage: 1,
-            // lastPage: 1
+            currentPage: 1,
+            lastPage: 1,
         };
     },
     created() {
         this.getTypes();
     },
     methods: {
+        changePage(page){
+            // 1. cambio la pagina
+            this.currentPage = page;
 
-        // changePage(page) {
-        //     this.currentPage = page;
-        //     this.getPosts();
-        // },
+            //2. richiamo la funzione per mostrare i ristoranti
+            this.getRestaurants();
+        },
+
         targetTypeCheck() {
             console.log(this.targetType);
         },
@@ -33,7 +36,7 @@ export default {
                 .get('http://127.0.0.1:8000/api/types', {
                 })
                 .then(response => {
-                    console.log(response.data);
+                    console.log('tipologie', response.data);
                     this.types = response.data.data;
                 });
         },
@@ -44,11 +47,16 @@ export default {
 
             axios
                 .get('http://127.0.0.1:8000/api/restaurants', {
-
+                    params: {
+                        types: restaurants[0].types[1]
+                       // page: this.currentPage
+                    }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    console.log('ristoranti', response.data);
                     const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
+
+                    this.lastPage = response.data.restaurants.last_page
 
                     console.log('restaurantsData', restaurantsData);
 
@@ -87,20 +95,29 @@ export default {
         </div>
 
         <!-- <div class="row">
-                                                                                                                                                        <div class="col">
-                                                                                                                                                            <nav class="d-flex justify-content-center">
-                                                                                                                                                                <ul class="pagination">
-                                                                                                                                                                    <li class="page-item" v-for="i in lastPage">
-                                                                                                                                                                        <button class="page-link" :class="{
-                                                                                                                                                                            active: currentPage == i
-                                                                                                                                                                        }" @click="changePage(i)">
-                                                                                                                                                                            {{ i }}
-                                                                                                                                                                        </button>
-                                                                                                                                                                    </li>
-                                                                                                                                                                </ul>
-                                                                                                                                                            </nav>
-                                                                                                                                                        </div>
-                                                                                                                                                    </div> -->
+            <div class="col">
+                <nav class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item" v-for="i in lastPage">
+                            <button class="page-link" :class="{
+                                active: currentPage == i
+                            }" @click="changePage(i)">
+                                {{ i }}
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div> -->
+
+        <!-- PAGINE -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="page-button" v-for="singlePage in lastPage">
+                <button @click="changePage(singlePage)">
+                    {{ singlePage }}
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
