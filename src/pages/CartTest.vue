@@ -18,7 +18,9 @@ export default {
                 this.totalPrice = 0; //azzera il prezzo totale
                 for (let i = 0; i < refreshStorage.length; i++) {
                     this.store.order.push(refreshStorage[i]); //se refresh storage ha del contenuto, lo pusha nello store
-                    this.totalPrice += parseFloat(refreshStorage[i].price); //aggiorna il prezzo totale con il prezzo di ogni ordine
+                    
+                    //una volta aggiunto come componente al restaurantshow, assicurarsi che il calcolo funzioni, altrimenti fare funzione a parte
+                    this.totalPrice += parseFloat(refreshStorage[i].price * store.plateCount['food-' + refreshStorage[i].id]); //aggiorna il prezzo totale con il prezzo di ogni ordine
                 }
                 refreshStorage = null; //resetta refreshstorage
             }
@@ -34,6 +36,16 @@ export default {
         deleteData() {
             localStorage.clear(); //questo svuota localstorage
             this.store.order = []; //questo svuota lo store
+        },
+        increaseQuantity(index) {
+            this.store.plateCount['food-' + index] ++;
+            console.log('plateCount+', this.store.plateCount['food-' + index]);
+            this.refreshData();
+        },
+        decreaseQuantity(index) {
+            this.store.plateCount['food-' + index] --;
+            console.log('plateCount-', this.store.plateCount['food-' + index]);
+            this.refreshData();
         }
     },
     mounted() {
@@ -62,7 +74,11 @@ export default {
 
                 <p>Quantità: {{ store.plateCount['food-' + singleOrder.id] }}</p>
 
-                <button class="btn btn-danger" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
+                <button class="btn btn-warning" v-on:click="decreaseQuantity(singleOrder.id)">-</button>
+                
+                <button class="btn btn-danger mx-2" v-on:click="deleteSingleOrder(singleOrder)">Elimina piatto</button>
+                
+                <button class="btn btn-success" v-on:click="increaseQuantity(singleOrder.id)">+</button>
             </ul>
        
         </div>
