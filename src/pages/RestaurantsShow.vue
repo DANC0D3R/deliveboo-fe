@@ -39,28 +39,33 @@
                 });
                 console.log(this.getFoods)
             },
-            dataStorage(item) {
+            dataStorage(item) {  
+                let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
+
+                if (target in this.store.plateCount == true) {
+                    this.store.plateCount[target] ++; //se la chiave esiste già, verrà aumentato di 1 il suo valore
+                }
+                else {
+                    this.store.plateCount[target] = 1; //se la chiave non esiste nell'oggetto, viene aggiunta con valore 1
+                }
+
+                console.log('plateCount', this.store.plateCount);
+
                 this.store.order = []; //svuotiamo lo store
                 let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
                 console.log('checkstorage', checkStorage);
+
                 if (checkStorage) {
                     for (let i = 0; i < checkStorage.length; i++) {
                         this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
                     }
                     checkStorage = null; //resetta checkstorage
                 }
+
                 this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
                 localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
-                
+
                 alert('Piatto aggiunto!');
-
-                console.log('order', this.store.order);
-
-                if (this.store.order.includes(item)) {
-                    let count = 0;
-                    this.store.order.forEach((element) => (element === item && count++));
-                    return count;
-                }
             },
         }
     };
