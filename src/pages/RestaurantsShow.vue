@@ -42,11 +42,21 @@
             dataStorage(item) {  
                 let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
 
+                let checkCounter = JSON.parse(localStorage.getItem('counter'));
+                console.log('checkCounter', checkCounter);
+                if (checkCounter) {
+                    checkCounter.forEach(singleCount => {
+                        console.log('singleCount', singleCount);
+                    });
+                }
+
                 if (target in this.store.plateCount == true) {
                     this.store.plateCount[target] ++; //se la chiave esiste già, verrà aumentato di 1 il suo valore
+                    localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
                 }
                 else {
                     this.store.plateCount[target] = 1; //se la chiave non esiste nell'oggetto, viene aggiunta con valore 1
+                    localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
                 }
 
                 console.log('plateCount', this.store.plateCount);
