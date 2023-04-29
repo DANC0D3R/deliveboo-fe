@@ -4,7 +4,8 @@ export default {
     name: "RestaurantCard",
     data() {
         return {
-           
+           store,
+           index: 0
         };
     },
     props:['restaurant'],
@@ -28,9 +29,13 @@ export default {
             </h6>
         </div>
         
-        <router-link :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)" class="btn btn-primary">
+        <router-link v-if="this.store.order.length == 0" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)" class="btn btn-primary">
             Menù
         </router-link>
+        <router-link v-else-if="this.store.order[0].restaurant_id == restaurant.id || this.store.order == null" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)" class="btn btn-primary">
+            Menù
+        </router-link>
+        <p v-else>Puoi ordinare da un solo ristorante alla volta! Svuota il carrello per ordinare da {{ restaurant.name }}.</p>
     </div>
     
     
