@@ -45,7 +45,7 @@ export default {
                 <router-link :to="{ name: 'Home' }" class="nav-link logo-link">
                     <i class="fa-solid fa-burger me-1"></i>
                     <span><strong>
-                        Deliveroo
+                        Deliveboo
                     </strong></span>
                 </router-link>
             </div>
