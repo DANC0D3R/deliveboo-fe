@@ -44,6 +44,7 @@ export default {
             localStorage.clear(); //questo svuota localstorage
             this.store.order = []; //questo svuota lo store
             this.store.plateCount = {};
+            this.totalPrice = 0;
         },
         increaseQuantity(item) {
             this.store.plateCount['food-' + item.id] ++; //aumenta di 1 il contatore del piatto
