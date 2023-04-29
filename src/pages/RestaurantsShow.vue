@@ -93,11 +93,12 @@ export default {
                     </div>
                     <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
 
-                <div class="button">
+                    <div class="button">
                     <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                     <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                    <button class="btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al carrello</button>
+                    <button class="food-buttons btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al
+                        carrello</button>
                     <div class="input-group pt-1 d-flex justify-content-center">
                         <span class="input-group-btn">
                                 <button type="button" class="quantity-left-minus btn btn-number" v-on:click="decrement()"
@@ -163,13 +164,13 @@ export default {
     </section>
 
     <!-- <div class="row g-3 mb-4">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ food.name }}>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div v-for="food in store.foodsList.food">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ food.name }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ food.name }}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div v-for="food in store.foodsList.food">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ food.name }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
 </template>
 
 <style lang="scss" scoped>
@@ -178,6 +179,11 @@ export default {
 
     .card-title {
         font-size: 1.1rem;
+    }
+
+    .food-buttons {
+        background-color: #FF8400;
+        color: white;
     }
 
     .overlay {
@@ -209,15 +215,9 @@ export default {
         .overlay-search {
             display: none;
             font-size: 3rem;
-            color: goldenrod;
-
-
+            color: #FF8400
         }
     }
-}
-
-.button {
-    // min-height: 200px;
 }
 
 .input-number {
