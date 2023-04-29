@@ -56,17 +56,16 @@ export default {
                 </div>
 
             </div>
-
-            <router-link :to="{ name: 'restaurants-show', }" @click="onMenuClick(restaurant.id)"
-                class="button-menu btn btn-dark w-100 position-absolute bottom-0 start-50 translate-middle-x">
-                Visita il nostro menù
-            </router-link>
         </div>
         
-        <router-link v-if="this.store.order.length == 0" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)" class="btn btn-primary">
+        <router-link v-if="this.store.order.length == 0" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)"
+         class="button-menu btn btn-dark w-100 position-absolute bottom-0 start-50 translate-middle-x"
+        >
             Menù
         </router-link>
-        <router-link v-else-if="this.store.order[0].restaurant_id == restaurant.id || this.store.order == null" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)" class="btn btn-primary">
+        <router-link v-else-if="this.store.order[0].restaurant_id == restaurant.id || this.store.order == null" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)"
+         class="button-menu btn btn-dark w-100 position-absolute bottom-0 start-50 translate-middle-x"
+        >
             Menù
         </router-link>
         <p v-else>Puoi ordinare da un solo ristorante alla volta! Svuota il carrello per ordinare da {{ restaurant.name }}.</p>
