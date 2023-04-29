@@ -257,6 +257,9 @@ export default {
     }
 }
 
+.btn {
+    background-color: #FF8400
+}
 
 a {
     min-height: 60%;
