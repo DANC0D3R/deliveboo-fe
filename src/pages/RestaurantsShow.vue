@@ -1,40 +1,40 @@
 <script>
-    import axios from 'axios';
-    import {store} from "../../store.js"
-    import FoodCard from '../components/FoodCard.vue';
-    export default {
-        name: 'RestaurantsShow',
-        components:{
-            FoodCard
-        },
-        data() {
-            return {
-                store,
-                restaurants: [],
-                doubles: []
-                // currentPage: 1,
-                // lastPage: 1
-            };
-        },
-        mounted() {
-            this.getFoods(store.selectedRestaurant);
+import axios from 'axios';
+import { store } from "../../store.js"
+import FoodCard from '../components/FoodCard.vue';
+export default {
+    name: 'RestaurantsShow',
+    components: {
+        FoodCard
+    },
+    data() {
+        return {
+            store,
+            restaurants: [],
+            doubles: []
+            // currentPage: 1,
+            // lastPage: 1
+        };
+    },
+    mounted() {
+        this.getFoods(store.selectedRestaurant);
 
-            // cerca se esiste un valore salvato nel localStorage per store.plateCount
-            let savedCounter = JSON.parse(localStorage.getItem('counter'));
-            if (savedCounter && typeof savedCounter === 'object') {
+        // cerca se esiste un valore salvato nel localStorage per store.plateCount
+        let savedCounter = JSON.parse(localStorage.getItem('counter'));
+        if (savedCounter && typeof savedCounter === 'object') {
             store.plateCount = savedCounter;
-            } else {
+        } else {
             store.plateCount = {};
-            }
-            this.getFoods(store.selectedRestaurant);
-        },
-        methods: {
-            // changePage(page) {
-            //     this.currentPage = page;
-            //     this.getPosts();
-            // },
-            getFoods(restaurantId) {
-                console.log("papa", restaurantId);
+        }
+        this.getFoods(store.selectedRestaurant);
+    },
+    methods: {
+        // changePage(page) {
+        //     this.currentPage = page;
+        //     this.getPosts();
+        // },
+        getFoods(restaurantId) {
+            console.log("papa", restaurantId);
             axios
                 .get('http://127.0.0.1:8000/api/foods/' + restaurantId)
                 .then(response => {
@@ -47,76 +47,80 @@
                         this.$router.push({ name: 'not-found' });
                     }
                 });
-                console.log(this.getFoods)
-            },
-            dataStorage(item) {
-                // Parte contatore---------------------------------------------------------------------
-                let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
+            console.log(this.getFoods)
+        },
+        dataStorage(item) {
+            // Parte contatore---------------------------------------------------------------------
+            let target = 'food-' + item.id; //creiamo una chiave da assegnare al contatore che abbia in se l'id del piatto
 
-                let checkCounter = JSON.parse(localStorage.getItem('counter'));
-                console.log('checkCounter', checkCounter);
-                if (checkCounter && Array.isArray(checkCounter)) { // controlla se l'array esiste
-                    checkCounter.forEach(singleCount => {
+            let checkCounter = JSON.parse(localStorage.getItem('counter'));
+            console.log('checkCounter', checkCounter);
+            if (checkCounter && Array.isArray(checkCounter)) { // controlla se l'array esiste
+                checkCounter.forEach(singleCount => {
                     console.log('singleCount', singleCount);
-                    });
-                }
-                else {
-                    checkCounter = []; // se l'array non esite lo inizializza, vuoto
-                }
-                if (target in this.store.plateCount == true) {
-                    this.store.plateCount[target] ++; //se la chiave esiste già, verrà aumentato di 1 il suo valore
-                    localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
-                }
-                else {
-                    this.store.plateCount[target] = 1; //se la chiave non esiste nell'oggetto, viene aggiunta con valore 1
-                    localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
-                }
+                });
+            }
+            else {
+                checkCounter = []; // se l'array non esite lo inizializza, vuoto
+            }
+            if (target in this.store.plateCount == true) {
+                this.store.plateCount[target]++; //se la chiave esiste già, verrà aumentato di 1 il suo valore
+                localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
+            }
+            else {
+                this.store.plateCount[target] = 1; //se la chiave non esiste nell'oggetto, viene aggiunta con valore 1
+                localStorage.setItem('counter', JSON.stringify(this.store.plateCount));
+            }
 
-                console.log('plateCount', this.store.plateCount);
+            console.log('plateCount', this.store.plateCount);
 
-                // Parte ordine---------------------------------------------------------------------
-                this.store.order = []; //svuotiamo lo store
-                let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
-                
-                if (checkStorage) {
-                    for (let i = 0; i < checkStorage.length; i++) {
-                        this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
-                    }
-                    checkStorage = null; //resetta checkstorage
-                }
+            // Parte ordine---------------------------------------------------------------------
+            this.store.order = []; //svuotiamo lo store
+            let checkStorage = JSON.parse(localStorage.getItem('order')); //verifichiamo se il localstorage sia pieno o no
 
-                const itemId = item.id; //recupero l'id del piatto
-                let flag = false; //setto una flag di controllo
-                for(let i = 0; i < this.store.order.length; i++) {
-                    if(this.store.order[i].id == itemId) {
-                        flag = true; //verifico se il piatto è già nell'array o meno
-                    }
+            if (checkStorage) {
+                for (let i = 0; i < checkStorage.length; i++) {
+                    this.store.order.push(checkStorage[i]); //se checkstorage ha del contenuto, lo pusha nello store
                 }
+                checkStorage = null; //resetta checkstorage
+            }
 
-                if(flag == false) {
-                    this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
-                    localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
-                    console.log('order', this.store.order);
+            const itemId = item.id; //recupero l'id del piatto
+            let flag = false; //setto una flag di controllo
+            for (let i = 0; i < this.store.order.length; i++) {
+                if (this.store.order[i].id == itemId) {
+                    flag = true; //verifico se il piatto è già nell'array o meno
                 }
-                else {
-                    this.doubles.push(item); //pusho il piatto doppione in un altro array
-                    console.log('doubles', this.doubles);
-                }
+            }
 
-                alert('Piatto aggiunto!');
-            },
-        }
-    };
+            if (flag == false) {
+                this.store.order.push(item); //così pushiamo ogni piatto che ordiniamo nello store
+                localStorage.setItem('order', JSON.stringify(this.store.order)); //il contenuto dello store viene salvato in localstorage
+                console.log('order', this.store.order);
+            }
+            else {
+                this.doubles.push(item); //pusho il piatto doppione in un altro array
+                console.log('doubles', this.doubles);
+            }
+
+            alert('Piatto aggiunto!');
+        },
+    }
+};
 </script>
 
 <template>
     <section class="container">
         <h2 class="text-center mb-4">Cosa ti portiamo oggi?</h2>
+        <!-- <h5 class="card-title">{{ restaurant.name }}</h5> -->
         <div class="row">
             <div v-for="food in store.foodsList.food" class="card-container col-4 mb-4 card ms-4 p-0 shadow rounded-end"
                 style="width: 18rem;">
-                <a :href="'#food-' + food.id" data-bs-toggle="modal">
+                <a>
                     <img :src="food.img" class="card-img-top" alt="...">
+                </a>
+                <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay">
+                    <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
                 </a>
 
                 <div class="card-body">
@@ -125,16 +129,31 @@
                         <div>
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
                             <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
-                        </span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
+                    <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
 
-                <div class="button">
-                    <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
+                    <div class="button">
+                        <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                        <button class="btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al carrello</button>
+                        <button class="food-buttons btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al
+                            carrello</button>
+                        <div class="input-group pt-1 d-flex justify-content-center">
+                            <span class="input-group-btn">
+                                <button type="button" class="quantity-left-minus btn btn-number" v-on:click="decrement()"
+                                    data-type="minus" data-field="">
+                                    <span class=""><i class="fa-solid fa-circle-minus"></i></span>
+                                </button>
+
+                                <span class="w-50">{{ count }}</span>
+                                <button type="button" class="quantity-right-plus btn btn-number" v-on:click="increment()"
+                                    data-type="plus" data-field="">
+                                    <span class=""><i class="fa-solid fa-circle-plus"></i></span>
+                                </button>
+                            </span>
+                        </div>
 
                     </div>
 
@@ -186,18 +205,18 @@
     </section>
 
     <!-- <div class="row g-3 mb-4">
-                                <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-                                    {{ food.name }}>
-                                </div>
-                            </div>
-                            <div v-for="food in store.foodsList.food">
-                                {{ food.name }}
-                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ food.name }}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div v-for="food in store.foodsList.food">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ food.name }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
 </template>
 
 <style lang="scss" scoped>
 .card-container {
-    min-height: 360px;
+    min-height: 450px;
 
     .card-title {
         font-size: 1.1rem;
@@ -215,5 +234,6 @@ a {
 
 img {
     height: 100%;
+    object-fit: cover;
 }
 </style>

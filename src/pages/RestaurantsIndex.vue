@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import {store} from "../../store";
+import { store } from "../../store";
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'RestaurantsIndex',
@@ -20,7 +20,7 @@ export default {
         this.getTypes();
     },
     methods: {
-        changePage(page){
+        changePage(page) {
             // 1. cambio la pagina
             this.currentPage = page;
 
@@ -79,13 +79,14 @@ export default {
             <h2>Cerca un ristorante per tipo</h2>
         </div>
         <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
-            <select class="col-6" name="types" id="types" v-model="targetType">
+            <select class="col-6 rounded-start" name="types" id="types" v-model="targetType">
                 <option v-for="singleType in types" :value="singleType">
                     {{ singleType.name }}
                 </option>
             </select>
+            <button type="submit" class="col-1 rounded-end" value="Cerca"><i
+                    class="fa-solid fa-magnifying-glass"></i></button>
 
-            <input type="submit" class="col-1" value="Cerca">
         </form>
 
         <!-- Ristoranti -->
@@ -96,20 +97,20 @@ export default {
         </div>
 
         <!-- <div class="row">
-            <div class="col">
-                <nav class="d-flex justify-content-center">
-                    <ul class="pagination">
-                        <li class="page-item" v-for="i in lastPage">
-                            <button class="page-link" :class="{
-                                active: currentPage == i
-                            }" @click="changePage(i)">
-                                {{ i }}
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div> -->
+                                                                                                                                                                                                                                <div class="col">
+                                                                                                                                                                                                                                    <nav class="d-flex justify-content-center">
+                                                                                                                                                                                                                                        <ul class="pagination">
+                                                                                                                                                                                                                                            <li class="page-item" v-for="i in lastPage">
+                                                                                                                                                                                                                                                <button class="page-link" :class="{
+                                                                                                                                                                                                                                                    active: currentPage == i
+                                                                                                                                                                                                                                                }" @click="changePage(i)">
+                                                                                                                                                                                                                                                    {{ i }}
+                                                                                                                                                                                                                                                </button>
+                                                                                                                                                                                                                                            </li>
+                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                    </nav>
+                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                            </div> -->
 
         <!-- PAGINE -->
         <div class="d-flex justify-content-center mb-4">
@@ -122,4 +123,21 @@ export default {
     </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+select {
+    border-right: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    // border-left: none;
+
+}
+
+.rounded-end {
+    width: 50px;
+    background-color: white;
+    border: 1px solid black;
+    border-left: none;
+}
+</style>
