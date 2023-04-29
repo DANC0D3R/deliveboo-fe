@@ -11,6 +11,7 @@ export default {
         return {
             store,
             restaurants: [],
+            count: 0
             // currentPage: 1,
             // lastPage: 1
         };
@@ -55,6 +56,14 @@ export default {
             console.log('ordine aggiunto!');
             console.log('order', this.store.order);
         },
+        increment() {
+            this.count++;
+        },
+        decrement() {
+            if (this.count > 0) {
+                this.count--;
+            }
+        }
     }
 };
 </script>
@@ -62,11 +71,15 @@ export default {
 <template>
     <section class="container">
         <h2 class="text-center mb-4">Cosa ti portiamo oggi?</h2>
+        <!-- <h5 class="card-title">{{ restaurant.name }}</h5> -->
         <div class="row">
             <div v-for="food in store.foodsList.food" class="card-container col-4 mb-4 card ms-4 p-0 shadow rounded-end"
                 style="width: 18rem;">
-                <a :href="'#food-' + food.id" data-bs-toggle="modal">
+                <a>
                     <img :src="food.img" class="card-img-top" alt="...">
+                </a>
+                <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay">
+                    <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
                 </a>
 
                 <div class="card-body">
@@ -75,16 +88,30 @@ export default {
                         <div>
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
                             <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
-                        </span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
+                    <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
 
                 <div class="button">
                     <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
-                        <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                        <button class="btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al carrello</button>
+                    <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
+                    <button class="btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al carrello</button>
+                    <div class="input-group pt-1 d-flex justify-content-center">
+                        <span class="input-group-btn">
+                                <button type="button" class="quantity-left-minus btn btn-number" v-on:click="decrement()"
+                                    data-type="minus" data-field="">
+                                    <span class=""><i class="fa-solid fa-circle-minus"></i></span>
+                                </button>
+
+                                <span class="w-50">{{ count }}</span>
+                                <button type="button" class="quantity-right-plus btn btn-number" v-on:click="increment()"
+                                    data-type="plus" data-field="">
+                                    <span class=""><i class="fa-solid fa-circle-plus"></i></span>
+                                </button>
+                            </span>
+                        </div>
 
                     </div>
 
@@ -136,26 +163,65 @@ export default {
     </section>
 
     <!-- <div class="row g-3 mb-4">
-                                <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
-                                    {{ food.name }}>
-                                </div>
-                            </div>
-                            <div v-for="food in store.foodsList.food">
-                                {{ food.name }}
-                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div v-for="food in foods" class="col-12 col-sm-4 col-md-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{ food.name }}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div v-for="food in store.foodsList.food">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ food.name }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
 </template>
 
 <style lang="scss" scoped>
 .card-container {
-    min-height: 360px;
+    min-height: 450px;
 
     .card-title {
         font-size: 1.1rem;
+    }
+
+    .overlay {
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+
+
+        &:hover {
+            background-color: rgba(0, 0, 0, $alpha: 0.4);
+            cursor: pointer;
+
+            & .overlay-search {
+                display: block;
+
+            }
+
+        }
+
+
+        .overlay-search {
+            display: none;
+            font-size: 3rem;
+            color: goldenrod;
+
+
+        }
     }
 }
 
 .button {
     // min-height: 200px;
+}
+
+.input-number {
+    border: 0;
 }
 
 a {
@@ -165,5 +231,6 @@ a {
 
 img {
     height: 100%;
+    object-fit: cover;
 }
 </style>
