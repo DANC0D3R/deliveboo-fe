@@ -4,4 +4,5 @@ export const store = reactive ({
     selectedRestaurant: 0,
     foodsList: [],
     order: [],
+    plateCount: {}
 });
