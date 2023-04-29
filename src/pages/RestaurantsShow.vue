@@ -119,7 +119,7 @@ export default {
                 <a>
                     <img :src="food.img" class="card-img-top" alt="...">
                 </a>
-                <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay">
+                <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay text-decoration-none">
                     <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
                 </a>
 
@@ -140,7 +140,7 @@ export default {
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
                         <button class="food-buttons btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al
                             carrello</button>
-                        <div class="input-group pt-1 d-flex justify-content-center">
+                        <!-- <div class="input-group pt-1 d-flex justify-content-center">
                             <span class="input-group-btn">
                                 <button type="button" class="quantity-left-minus btn btn-number" v-on:click="decrement()"
                                     data-type="minus" data-field="">
@@ -153,7 +153,7 @@ export default {
                                     <span class=""><i class="fa-solid fa-circle-plus"></i></span>
                                 </button>
                             </span>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -216,16 +216,47 @@ export default {
 
 <style lang="scss" scoped>
 .card-container {
-    min-height: 450px;
+    min-height: 380px;
 
     .card-title {
         font-size: 1.1rem;
     }
 }
 
-// .button {
-//     // min-height: 200px;
-// }
+
+.overlay {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, $alpha: 0.4);
+        cursor: pointer;
+
+        & .overlay-search {
+            display: block;
+            text-decoration: none;
+
+        }
+
+    }
+
+
+    .overlay-search {
+        display: none;
+        font-size: 3rem;
+        color: #FF8400
+    }
+}
+
 
 a {
     min-height: 60%;
