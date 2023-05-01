@@ -1,10 +1,18 @@
 <script>
+import { store } from "../../store"
+import CartTest from "../pages/CartTest.vue"
+
+
 export default {
     name: "AppHeader",
     data() {
         return {
+            store,
         };
-    }
+    },
+    components: {
+        CartTest,
+    },
 };
 </script>
 
@@ -30,11 +38,9 @@ export default {
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
 
-                    <!-- Contenuto carrelo -->
+                    <!-- Contenuto carrello -->
                     <div class="offcanvas-body">
-                        <p>
-                            Contenuto del carrello
-                        </p>
+                        <CartTest />
                     </div>
                 </div>
 

@@ -27,7 +27,7 @@ export default {
             axios.post('http://127.0.0.1:8000/api/orders', {
                 // Il secondo argomento è un oggetto che contiene dei rapporti chiave/valore dove i valori sono gli stessi che salviamo in data, presi dagli input.
                 restaurant_id: this.restaurantId,
-                total_price: this.totalPrice,
+                total_price: this.store.totalPrice,
                 client_name: this.client_name,
                 client_surname: this.client_surname,
                 client_address: this.client_address,

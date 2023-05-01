@@ -14,10 +14,10 @@ export default {
                     routeName: 'restaurants-index',
                     label: 'Scegli per Tipologia'
                 },
-                {
-                    routeName: 'cart',
-                    label: 'Il tuo Carrello'
-                },
+                // {
+                //     routeName: 'cart',
+                //     label: 'Il tuo Carrello'
+                // },
             ]
         }
     },

@@ -191,7 +191,7 @@ export default {
                 <div class="social">
                   <a href="#">
                     <i class="fa-brands fa-square-facebook"></i>
-                    <span>Fecebook</span>
+                    <span>Facebook</span>
                   </a>
                 </div>
 

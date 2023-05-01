@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .back-jumbo{
     background-image:url('../img/jumbo.png');
-    background-size: 100%;
+    background-size: cover;
     height:600px;
     display: flex;
     align-items: center;

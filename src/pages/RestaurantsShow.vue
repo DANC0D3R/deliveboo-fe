@@ -103,6 +103,8 @@ export default {
                 console.log('doubles', this.doubles);
             }
 
+            this.store.totalPrice += parseFloat(item.price);
+
             alert('Piatto aggiunto!');
         },
     }
