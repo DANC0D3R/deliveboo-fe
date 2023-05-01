@@ -36,6 +36,8 @@ export default {
                 console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
             }); //Dopo il .then potremmo anche aggiungere un .catch per gli aventuali errori.
 
+            this.deleteData();
+            
             alert('ordine inviato');
         },
         refreshData() {
