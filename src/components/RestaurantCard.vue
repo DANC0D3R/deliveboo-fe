@@ -22,10 +22,8 @@ export default {
 
         <div class="card-body position-relative px-0 pt-0 ">
             <!-- Immagine -->
-            <a href="#">
-                <img :src="restaurant.img" class="card-img-top mb-3" :alt="restaurant.name">
-            </a>
-
+            <img :src="restaurant.img" class="card-img-top mb-3" :alt="restaurant.name">
+        
             <!-- Nome -->
             <h4 class="card-title my-2 ms-4">
                 {{ restaurant.name }}
@@ -63,12 +61,15 @@ export default {
         >
             Menù
         </router-link>
+
         <router-link v-else-if="this.store.order[0].restaurant_id == restaurant.id || this.store.order == null" :to="{ name: 'restaurants-show',  }" @click="onMenuClick(restaurant.id)"
-         class="button-menu btn btn-dark w-100 position-absolute bottom-0 start-50 translate-middle-x"
-        >
+         class="button-menu btn btn-dark w-100 position-absolute bottom-0 start-50 translate-middle-x">
             Menù
         </router-link>
-        <p v-else>Puoi ordinare da un solo ristorante alla volta! Svuota il carrello per ordinare da {{ restaurant.name }}.</p>
+        <p v-else class="px-4">
+            Puoi ordinare da un solo ristorante alla volta! Svuota il carrello per ordinare da 
+            {{ restaurant.name }}.
+        </p>
     </div>
 </template>
 

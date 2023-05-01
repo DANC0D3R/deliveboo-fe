@@ -27,7 +27,7 @@ export default {
             axios.post('http://127.0.0.1:8000/api/orders', {
                 // Il secondo argomento è un oggetto che contiene dei rapporti chiave/valore dove i valori sono gli stessi che salviamo in data, presi dagli input.
                 restaurant_id: this.restaurantId,
-                total_price: this.totalPrice,
+                total_price: this.store.totalPrice,
                 client_name: this.client_name,
                 client_surname: this.client_surname,
                 client_address: this.client_address,
@@ -113,24 +113,27 @@ export default {
             <!-- per ogni oggetto presente nell'array orderCart, ne stampiamo una lista di dati -->
             <div v-for="singleOrder in store.order" class="col-12 mb-4 single-order py-4">
                 <p> 
-                    <strong>Prodotto:</strong>
-                    {{ singleOrder.name }}
+                    <span>Prodotto: </span>
+                    <strong>{{ singleOrder.name }}</strong> 
                 </p>
 
                 <p>
-                    <strong>Prezzo:</strong>
-                    {{ singleOrder.price }} €
+                    <span>Prezzo: </span>
+                    <strong>{{ singleOrder.price }}€</strong>
                 </p>
 
 
-                <div class="d-flex">
-                    <div class="d-flex">
-                        <button class="btn btn-warning" v-on:click="decreaseQuantity(singleOrder)">-</button>
-                        <p>{{ store.plateCount['food-' + singleOrder.id] }}</p>
-                        <button class="btn btn-success" v-on:click="increaseQuantity(singleOrder)">+</button>
+                <!-- Bottoni -->
+                <div class="row button-container">
+                    <div class="d-flex col-6 align-items-center">
+                        <button class="btn increase-decrease" v-on:click="decreaseQuantity(singleOrder)">-</button>
+                        <span class="mx-2">
+                            {{ store.plateCount['food-' + singleOrder.id] }}
+                        </span>
+                        <button class="btn increase-decrease" v-on:click="increaseQuantity(singleOrder)">+</button>
                     </div>
                     
-                    <div class="d-flex justify-content-end">
+                    <div class="col-6 text-end">
                         <button class="btn btn-danger mx-2" v-on:click="deleteSingleOrder(singleOrder)">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
@@ -139,40 +142,138 @@ export default {
             
             </div>
        
+            <div class="single-order py-4 col-12 d-flex justify-content-between">
+                <span>Totale Ordine:</span>
+                <span> <strong>
+                    {{ store.totalPrice.toFixed(2) }}€
+                </strong></span>     
+            </div>
+
+            <!-- questo pulsante svuota il localstorage -->
+            <button class="btn btn-danger col-12 mt-4" v-on:click="deleteData()">
+                Cancella ordine
+            </button>
+        
         </div>
-        <div>Prezzo totale {{ store.totalPrice }} €</div>
 
-        <!-- questo pulsante svuota il localstorage -->
-        <button class="btn btn-danger col-3" v-on:click="deleteData()">Cancella ordine</button>
+        <hr class="my-5">
 
+        <div class="row justify-content-center">
+            <div class="col-12 mb-3">
+                <h4>
+                    Check out
+                </h4>
+            </div>
 
-        <h2>Invio ordine</h2>
+            <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
 
-        <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
+                <!-- Nome -->
+                <div class="mb-3">
+                    <label for="client_name" class="form-label">Nome <strong>*</strong></label>
+                    <input v-model="client_name"
+                    name="client_name" 
+                    id="client_name"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo nome..."
+                    required>
+                </div>
 
-            <input
-            v-model="client_name" type="text" name="client_name" placeholder="Scrivi il tuo nome">
+                <!-- Cognome -->
+                <div class="mb-3">
+                    <label for="client_surname" class="form-label">Cognome <strong>*</strong></label>
+                    <input v-model="client_surname"
+                    name="client_surname" 
+                    id="client_surname"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo cognome..."
+                    required>
+                </div>
 
-            <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
+                <!-- Indirizzo -->
+                <div class="mb-3">
+                    <label for="client_address" class="form-label">Indirizzo <strong>*</strong></label>
+                    <input v-model="client_address"
+                    name="client_address" 
+                    id="client_address"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo indirizzo..."
+                    required>
+                </div>
 
-            <input v-model="client_address" type="text" name="client_address" placeholder="Scrivi il tuo indirizzo">
+                <!-- Telefono -->
+                <div class="mb-3">
+                    <label for="client_phone" class="form-label">Numero di telefono <strong>*</strong></label>
+                    <input v-model="client_phone"
+                    name="client_phone" 
+                    id="client_phone"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo numero di telefono..."
+                    required>
+                </div>
 
-            <input v-model="client_phone" type="text" name="client_phone" placeholder="Scrivi il tuo numero di telefono">
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="client_email" class="form-label">Email <strong>*</strong></label>
+                    <input v-model="client_email"
+                    name="client_email" 
+                    id="client_email"
+                    type="email" 
+                    class="form-control"
+                    placeholder="Inserisci la tua email..."
+                    required>
+                </div>
 
-            <input v-model="client_email" type="text" name="client_email" placeholder="Scrivi il tuo indirizzo email">
+                <!-- Note -->
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Note</label>
+                    <textarea 
+                    v-model="notes" 
+                    name="notes" 
+                    id="notes" 
+                    cols="30" 
+                    rows="10"
+                    class="form-control"
+                    placeholder="Note"></textarea>
+                </div>
 
-            <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea>
+                <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
 
-            <input type="submit" class="btn btn-success">
-        </form>
+                <button type="submit" class="btn btn-success">
+                    Invia ordine
+                </button>
+            </form>
+        </div>
+
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 h4{
     font-weight: 600;
 }
 .single-order{
     background-color: #EFEDEA;
+
+    .button-container{
+        .increase-decrease{
+            color: white;
+            background-color: $main-orange;
+        }
+
+        span{
+            font-weight: 600;
+        }
+
+    }
+}
+
+form{
+    p{
+        font-size:0.8rem;
+    }
 }
 </style>

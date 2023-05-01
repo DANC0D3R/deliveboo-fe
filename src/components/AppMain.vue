@@ -14,10 +14,10 @@ export default {
                     routeName: 'restaurants-index',
                     label: 'Scegli per Tipologia'
                 },
-                {
-                    routeName: 'cart',
-                    label: 'Il tuo Carrello'
-                },
+                // {
+                //     routeName: 'cart',
+                //     label: 'Il tuo Carrello'
+                // },
             ]
         }
     },
@@ -36,11 +36,11 @@ export default {
         <Jumbo />
 
         <!-- Navbar pagine -->
-        <div class="container">
+        <div class="container mb-5">
             <div class="row">
                 <div class="col">
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                        <div class="container-fluid">
+                        <div class="container-fluid rounded shadow my-5 py-5 d-block container-yellow">
 
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -48,7 +48,12 @@ export default {
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
-                            <div class="collapse navbar-collapse" id="navbarNav">
+                            <div class="text-container text-center mb-5">
+                                    <h3>Ordina dai tuoi ristoranti preferiti</h3>
+                                    <p>Trova i ristoranti nella tua zona e ordina online a domicilio, rimanendo comodamente sul divano di casa</p>
+                            </div>
+
+                            <div class="collapse navbar-collapse button-container" id="navbarNav">
                                 <ul class="navbar-nav d-flex w-100 justify-content-center menu-collegamenti">
                                     <li class="nav-item bottoni-collegamenti" v-for="menuItem in menuItems">
                                         <router-link :to="{ name: menuItem.routeName }" class="nav-link text-white">
@@ -67,6 +72,8 @@ export default {
 
             </router-view>
         </div>
+
+        
     </main>
 </template>
 
@@ -74,21 +81,30 @@ export default {
 main {
     margin-top: 60px;
 
-    .menu-collegamenti {
-        margin: 4rem 0;
+    .button-container {
 
-        .bottoni-collegamenti {
-            background-color: $main-orange;
-            border-radius: 2rem;
-            padding: 0.3rem 1rem;
-            margin: 0 2rem;
-            font-weight: 600;
-            color: white !important;
+        .menu-collegamenti {
+
+            .bottoni-collegamenti {
+                background-color: $main-orange;
+                border-radius: 2rem;
+                padding: 0.3rem 1rem;
+                margin: 0 2rem;
+                font-weight: 600;
+                color: white !important;
+            }
+
+            .bottoni-collegamenti:hover {
+                background-color: $main-yellow;
+            }
+
         }
 
-        .bottoni-collegamenti:hover {
-            background-color: $secondary-orange;
-        }
+    }
+
+    .container-yellow{
+        background-color: $main-white;
     }
 }
+
 </style>

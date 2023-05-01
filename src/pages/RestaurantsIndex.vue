@@ -78,6 +78,7 @@ export default {
         <div class="row text-center mb-3">
             <h2>Cerca un ristorante per tipo</h2>
         </div>
+
         <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
             <select class="col-6 rounded-start" name="types" id="types" v-model="targetType">
                 <option v-for="singleType in types" :value="singleType">
@@ -85,9 +86,24 @@ export default {
                 </option>
             </select>
             <button type="submit" class="col-1 rounded-end" value="Cerca"><i
-                    class="fa-solid fa-magnifying-glass"></i></button>
-
+                    class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </form>
+
+        <!-- <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants()">
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <div v-for="singleType in types">
+                    <input type="checkbox" class="btn-check" :id="singleType.name" autocomplete="off">
+                    <label class="btn btn-outline-primary" :for="singleType.name">
+                        {{ singleType.name }}
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="col-1 rounded-end" value="Cerca"><i
+                    class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form> -->
 
         <!-- Ristoranti -->
         <div class="row g-4 mb-4">

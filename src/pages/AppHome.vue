@@ -59,10 +59,10 @@ export default {
 
         <!-- TITOLO -->
         <div class="row">
-            <div class="col text-center mb-3">
-                <h2>
+            <div class="col text-center my-5">
+                <h1>
                     Tutti i ristoranti
-                </h2>
+                </h1>
             </div>
         </div>
 
@@ -86,5 +86,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+h1{
+    font-weight: 600;
+}
 </style>
