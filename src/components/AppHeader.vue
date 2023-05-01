@@ -1,6 +1,6 @@
 <script>
 import { store } from "../../store"
-import CartTest from "../pages/CartTest.vue"
+import CartTest from "./CartTest.vue"
 
 
 export default {
@@ -24,15 +24,15 @@ export default {
             <!-- Carrello -->
             <div class="col-md-4">
 
-                <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                    Il tuo Carrello
+                <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                    Il tuo carrello
                 </a>
 
-                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                     
                     <!-- Titolo -->
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
+                        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
                             Riepilogo carrello
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

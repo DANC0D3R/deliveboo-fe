@@ -104,8 +104,6 @@ export default {
             }
 
             this.store.totalPrice += parseFloat(item.price);
-
-            alert('Piatto aggiunto!');
         },
     }
 };
@@ -140,8 +138,11 @@ export default {
                         <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                        <button class="food-buttons btn btn-warning w-100" @click="dataStorage(food)">Aggiungi al
-                            carrello</button>
+                        <a class="food-buttons btn btn-warning w-100"  @click="dataStorage(food)"
+                        href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                            Il tuo carrello
+                        </a>
+
                         <!-- <div class="input-group pt-1 d-flex justify-content-center">
                             <span class="input-group-btn">
                                 <button type="button" class="quantity-left-minus btn btn-number" v-on:click="decrement()"
