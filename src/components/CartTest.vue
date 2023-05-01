@@ -167,19 +167,84 @@ export default {
 
             <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
 
-                <input v-model="client_name" type="text" name="client_name" placeholder="Scrivi il tuo nome">
+                <!-- Nome -->
+                <div class="mb-3">
+                    <label for="client_name" class="form-label">Nome <strong>*</strong></label>
+                    <input v-model="client_name"
+                    name="client_name" 
+                    id="client_name"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo nome..."
+                    required>
+                </div>
 
-                <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
+                <!-- Cognome -->
+                <div class="mb-3">
+                    <label for="client_surname" class="form-label">Cognome <strong>*</strong></label>
+                    <input v-model="client_surname"
+                    name="client_surname" 
+                    id="client_surname"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo cognome..."
+                    required>
+                </div>
 
-                <input v-model="client_address" type="text" name="client_address" placeholder="Scrivi il tuo indirizzo">
+                <!-- Indirizzo -->
+                <div class="mb-3">
+                    <label for="client_address" class="form-label">Indirizzo <strong>*</strong></label>
+                    <input v-model="client_address"
+                    name="client_address" 
+                    id="client_address"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo indirizzo..."
+                    required>
+                </div>
 
-                <input v-model="client_phone" type="text" name="client_phone" placeholder="Scrivi il tuo numero di telefono">
+                <!-- Telefono -->
+                <div class="mb-3">
+                    <label for="client_phone" class="form-label">Numero di telefono <strong>*</strong></label>
+                    <input v-model="client_phone"
+                    name="client_phone" 
+                    id="client_phone"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Inserisci il tuo numero di telefono..."
+                    required>
+                </div>
 
-                <input v-model="client_email" type="text" name="client_email" placeholder="Scrivi il tuo indirizzo email">
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="client_email" class="form-label">Email <strong>*</strong></label>
+                    <input v-model="client_email"
+                    name="client_email" 
+                    id="client_email"
+                    type="email" 
+                    class="form-control"
+                    placeholder="Inserisci la tua email..."
+                    required>
+                </div>
 
-                <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea>
+                <!-- Note -->
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Note</label>
+                    <textarea 
+                    v-model="notes" 
+                    name="notes" 
+                    id="notes" 
+                    cols="30" 
+                    rows="10"
+                    class="form-control"
+                    placeholder="Note"></textarea>
+                </div>
 
-                <input type="submit" class="btn btn-success">
+                <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
+
+                <button type="submit" class="btn btn-success">
+                    Invia ordine
+                </button>
             </form>
         </div>
 
@@ -203,6 +268,12 @@ h4{
             font-weight: 600;
         }
 
+    }
+}
+
+form{
+    p{
+        font-size:0.8rem;
     }
 }
 </style>
