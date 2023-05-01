@@ -111,13 +111,15 @@ export default {
 
 <template>
     <section class="container">
-        <h2 class="text-center mb-4">Cosa ti portiamo oggi?</h2>
+        <h2 class="text-center my-5">
+            Menù
+        </h2>
         <!-- <h5 class="card-title">{{ restaurant.name }}</h5> -->
         <div class="row">
             <div v-for="food in store.foodsList.food" class="card-container col-4 mb-4 card ms-4 p-0 shadow rounded-end"
                 style="width: 18rem;">
                 <a>
-                    <img :src="food.img" class="card-img-top" alt="...">
+                    <img :src="food.img" class="card-img-top" :alt="food.name">
                 </a>
                 <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay text-decoration-none">
                     <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
@@ -125,22 +127,31 @@ export default {
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
+
+                        <!-- Nome piatto -->
                         <h5 class="card-title">{{ food.name }}</h5>
+
+                        <!-- Opzioni veg -->
                         <div>
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
-                            <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i>
-                            </span>
+                            <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
                         </div>
                     </div>
-                    <p class="small text-secondary text-end"><strong>Prezzo:</strong> {{ food.price }}€</p>
 
+                    <!-- Prezzo -->
+                    <p class="small text-secondary">
+                        <strong>Prezzo:</strong> 
+                        {{ food.price }}€
+                    </p>
+
+                    <!-- Add button -->
                     <div class="button">
                         <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
                         <a class="food-buttons btn btn-warning w-100"  @click="dataStorage(food)"
                         href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                            Il tuo carrello
+                            Aggiungi al carello
                         </a>
 
                         <!-- <div class="input-group pt-1 d-flex justify-content-center">
@@ -180,7 +191,16 @@ export default {
 
                                 <p>{{ food.description }}</p>
 
-                                <p><strong>Disponibilità:</strong> {{ food.availability }}</p>
+                                <!-- <p><strong>Disponibilità:</strong> 
+                                    {{ food.availability }}
+                                </p> -->
+
+                                <div v-if="food.availability" class="disponibile mb-3">
+                                    Il piatto è disponibile
+                                </div>
+                                <div v-else class="non-disponibile mb-3">
+                                    Il piatto non è disponibile
+                                </div>
 
                                 <!-- <span><strong>Vegano:</strong> {{ food.vegan }}</span> -->
 
@@ -198,7 +218,7 @@ export default {
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                             </div>
                         </div>
                     </div>
@@ -223,6 +243,16 @@ export default {
 
     .card-title {
         font-size: 1.1rem;
+    }
+
+    .disponibile{
+        font-weight: 600;
+        color: green;
+    }
+
+    .non-disponibile{
+        font-weight: 600;
+        color: red;
     }
 }
 
@@ -256,12 +286,13 @@ export default {
     .overlay-search {
         display: none;
         font-size: 3rem;
-        color: #FF8400
+        color: $main-orange
     }
 }
 
 .btn {
-    background-color: #FF8400;
+    background-color: $main-orange;
+    border: none;
     color: white;
 
 }
