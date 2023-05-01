@@ -258,7 +258,9 @@ export default {
 }
 
 .btn {
-    background-color: #FF8400
+    background-color: #FF8400;
+    color: white;
+
 }
 
 a {

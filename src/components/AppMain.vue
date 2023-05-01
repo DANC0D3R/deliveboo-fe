@@ -31,25 +31,27 @@ export default {
 </script>
 
 <template>
-  <main>
+    <main>
 
-    <Jumbo />
+        <Jumbo />
 
-    <!-- Navbar pagine -->
-    <div class="container">
+        <!-- Navbar pagine -->
+        <div class="container">
             <div class="row">
                 <div class="col">
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
                         <div class="container-fluid">
 
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav d-flex w-100 justify-content-center menu-collegamenti">
                                     <li class="nav-item bottoni-collegamenti" v-for="menuItem in menuItems">
-                                        <router-link :to="{ name: menuItem.routeName }" class="nav-link">
+                                        <router-link :to="{ name: menuItem.routeName }" class="nav-link text-white">
                                             {{ menuItem.label }}
                                         </router-link>
                                     </li>
@@ -60,23 +62,22 @@ export default {
                 </div>
             </div>
 
-        <!-- RISTORANTI -->
-        <router-view>
+            <!-- RISTORANTI -->
+            <router-view>
 
-        </router-view>
-    </div>
-  </main>
+            </router-view>
+        </div>
+    </main>
 </template>
 
 <style lang="scss" scoped>
+main {
+    margin-top: 60px;
 
-main{
-    margin-top:60px;
-
-    .menu-collegamenti{
+    .menu-collegamenti {
         margin: 4rem 0;
 
-        .bottoni-collegamenti{
+        .bottoni-collegamenti {
             background-color: $main-orange;
             border-radius: 2rem;
             padding: 0.3rem 1rem;
@@ -84,11 +85,10 @@ main{
             font-weight: 600;
             color: white !important;
         }
-        .bottoni-collegamenti:hover{
+
+        .bottoni-collegamenti:hover {
             background-color: $secondary-orange;
         }
     }
 }
-
-
 </style>
