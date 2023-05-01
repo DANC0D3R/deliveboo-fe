@@ -36,26 +36,27 @@ export default {
         });
         },
         processPayment() {
-        if (this.dropinInstance) {
-            this.dropinInstance.requestPaymentMethod((error, payload) => {
-                if (error) {
-                    console.error(error);
-                    this.paymentStatus = 'error';
-                    this.paymentMessage = 'An error occurred while processing your payment.';
-                    return;
-                }
+            if (this.dropinInstance) {
+                this.dropinInstance.requestPaymentMethod((error, payload) => {
+                    if (error) {
+                        console.error(error);
+                        this.paymentStatus = 'error';
+                        this.paymentMessage = 'An error occurred while processing your payment.';
+                        return;
+                    }
 
-                axios.post('/api/payments', {
-                    paymentMethodNonce: payload.nonce
-                }).then(response => {
-                    this.paymentStatus = 'success';
-                    this.paymentMessage = response.data.message;
-                }).catch(error => {
-                    console.error(error);
-                    this.paymentStatus = 'error';
-                    this.paymentMessage = 'An error occurred while processing your payment.';
+                    axios.post('/api/payments', {
+                        paymentMethodNonce: payload.nonce
+                    }).then(response => {
+                        this.paymentStatus = 'success';
+                        this.paymentMessage = response.data.message;
+                    }).catch(error => {
+                        console.error(error);
+                        this.paymentStatus = 'error';
+                        this.paymentMessage = 'An error occurred while processing your payment.';
+                    });
                 });
-            });
+            }
         }
     }
 }
