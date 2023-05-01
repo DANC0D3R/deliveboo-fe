@@ -1,5 +1,6 @@
 <script>
 import {store} from "../../store.js"
+import Payment from "../components/Payment.vue"
 export default {
     name: 'CartTest',
     data() {
@@ -66,7 +67,10 @@ export default {
     },
     mounted() {
         this.refreshData();
-    }
+    },
+    components: {
+        Payment,
+    },
 };
 </script>
 
@@ -96,9 +100,10 @@ export default {
                 
                 <button class="btn btn-success" v-on:click="increaseQuantity(singleOrder)">+</button>
             </ul>
-       
         </div>
         <div>Prezzo totale {{ totalPrice }} €</div>
+
+        <Payment />
     </div>
 </template>
 
