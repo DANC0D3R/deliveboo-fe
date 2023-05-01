@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import {store} from "../../store.js"
 export default {
     name: 'CartTest',
@@ -6,10 +7,37 @@ export default {
         return {
             store,
             orderCart: [],
-            totalPrice: 0
+            totalPrice: 0,
+            restaurantId: store.order[0].restaurant_id,
+
+            client_name: '',
+            client_surname: '',
+            client_address: '',
+            client_phone: '',
+            client_email: '',
+            notes: '',
         }
     },
     methods: {
+        createOrder() {
+            // Il primo argomento della chiamata axios è l'url al quale dovranno essere inviati i dati con metodo post, completo di rotta api/orders (vedi api.php in back end).
+            axios.post('http://127.0.0.1:8000/api/orders', {
+                // Il secondo argomento è un oggetto che contiene dei rapporti chiave/valore dove i valori sono gli stessi che salviamo in data, presi dagli input.
+                restaurant_id: this.restaurantId,
+                total_price: this.totalPrice,
+                client_name: this.client_name,
+                client_surname: this.client_surname,
+                client_address: this.client_address,
+                client_phone: this.client_phone,
+                client_email: this.client_email,
+                notes: this.notes
+            })
+            .then(response => {
+                console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
+            }); //Dopo il .then potremmo anche aggiungere un .catch per gli aventuali errori.
+
+            alert('ordine inviato');
+        },
         refreshData() {
             this.store.order = []; //svuotiamo l'array per evitare raddoppi
             this.store.plateCount = {};
@@ -99,6 +127,25 @@ export default {
        
         </div>
         <div>Prezzo totale {{ totalPrice }} €</div>
+
+        <h2>Invio ordine</h2>
+
+        <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
+
+            <input v-model="client_name" type="text" name="client_name" placeholder="Scrivi il tuo nome">
+
+            <input v-model="client_surname" type="text" name="client_surname" placeholder="Scrivi il tuo cognome">
+
+            <input v-model="client_address" type="text" name="client_address" placeholder="Scrivi il tuo indirizzo">
+
+            <input v-model="client_phone" type="text" name="client_phone" placeholder="Scrivi il tuo numero di telefono">
+
+            <input v-model="client_email" type="text" name="client_email" placeholder="Scrivi il tuo indirizzo email">
+
+            <textarea v-model="notes" name="notes" id="notes" cols="30" rows="10"></textarea>
+
+            <input type="submit" class="btn btn-success">
+        </form>
     </div>
 </template>
 
