@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import {store} from "../../store";
+import { store } from "../../store";
 import RestaurantCard from '../components/RestaurantCard.vue'
 export default {
     name: 'AppHome',
@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         // Funzione per creare la paginazione
-        changePage(page){
+        changePage(page) {
             // 1. cambio la pagina
             this.currentPage = page;
 
@@ -54,7 +54,6 @@ export default {
 </script>
 
 <template>
-
     <div class="container">
 
         <!-- TITOLO -->
@@ -68,7 +67,7 @@ export default {
 
         <!-- RISTORANTI -->
         <div class="row g-4">
-            <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
+            <div v-for="restaurant in restaurants" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                 <RestaurantCard :restaurant="restaurant" />
             </div>
         </div>
@@ -82,11 +81,10 @@ export default {
             </div>
         </div> -->
     </div>
-
 </template>
 
 <style lang="scss" scoped>
-h1{
+h1 {
     font-weight: 600;
 }
 </style>

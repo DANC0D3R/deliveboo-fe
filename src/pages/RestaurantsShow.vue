@@ -111,13 +111,13 @@ export default {
 
 <template>
     <section class="container">
-        <h2 class="text-center my-5">
+        <h2 class="text-center my-5 pt-4">
             Menù
         </h2>
         <!-- <h5 class="card-title">{{ restaurant.name }}</h5> -->
         <div class="row">
-            <div v-for="food in store.foodsList.food" class="card-container col-4 mb-4 card ms-4 p-0 shadow rounded-end"
-                style="width: 18rem;">
+            <div v-for="food in store.foodsList.food"
+                class="card-container col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-4 card px-0 shadow rounded-end">
                 <a>
                     <img :src="food.img" class="card-img-top" :alt="food.name">
                 </a>
@@ -134,13 +134,14 @@ export default {
                         <!-- Opzioni veg -->
                         <div>
                             <span v-if="food.vegetarian"> <i class="fa-solid fa-leaf type text-success"></i></span>
-                            <span class="ms-1" v-if="food.vegan"><i class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
+                            <span class="ms-1" v-if="food.vegan"><i
+                                    class="text-warning fa-solid fa-wheat-awn gluten"></i></span>
                         </div>
                     </div>
 
                     <!-- Prezzo -->
                     <p class="small text-secondary">
-                        <strong>Prezzo:</strong> 
+                        <strong>Prezzo:</strong>
                         {{ food.price }}€
                     </p>
 
@@ -149,8 +150,9 @@ export default {
                         <!-- <a :href="'#food-' + food.id" class="btn btn-primary" data-bs-toggle="modal">Dettagli</a> -->
 
                         <!-- con questo pulsante, usiamo il metodo che prende come argomento il singolo piatto e tutti i suoi dati -->
-                        <a class="food-buttons btn btn-warning w-100"  @click="dataStorage(food)"
-                        href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        <a class="food-buttons btn btn-warning w-100 small" @click="dataStorage(food)" href="#"
+                            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                            aria-controls="offcanvasWithBothOptions">
                             Aggiungi al carello
                         </a>
 
@@ -240,17 +242,18 @@ export default {
 <style lang="scss" scoped>
 .card-container {
     min-height: 380px;
+    // max-width: calc(25% - 2%);
 
     .card-title {
         font-size: 1.1rem;
     }
 
-    .disponibile{
+    .disponibile {
         font-weight: 600;
         color: green;
     }
 
-    .non-disponibile{
+    .non-disponibile {
         font-weight: 600;
         color: red;
     }
@@ -294,6 +297,7 @@ export default {
     background-color: $main-orange;
     border: none;
     color: white;
+    font-size: 0.9rem;
 
 }
 
