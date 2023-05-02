@@ -61,7 +61,7 @@ export default {
                     // Con questa funzione filtriamo i ristoranti, aggiungendo all'array solo quelli che tra le tipologie hanno quelle con l'id ricercato
                     this.restaurants = restaurantsData.filter(restaurant => {
                         let restaurantTypeIds = restaurant.types.map(type => type.id);
-                        return typeIds.every(typeId => restaurantTypeIds.includes(typeId));
+                        return typeIds.some(typeId => restaurantTypeIds.includes(typeId));
                     });
                 console.log('restaurants', this.restaurants);
                 });
