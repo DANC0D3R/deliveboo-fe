@@ -17,15 +17,18 @@ export default {
             client_phone: '',
             client_email: '',
             notes: '',
-            // food_content: [],
+            food_content: [],
+            // counter: []
         }
     },
     methods: {
         createOrder() {
             this.restaurantId = this.store.order[0].restaurant_id;
-            // for(let i = 0; i < this.store.order.length; i++) {
-            //     this.food_content.push(this.store.order[i]);
-            // }
+            for(let i = 0; i < this.store.order.length; i++) {
+                this.food_content.push(this.store.order[i].id);
+            }
+
+            let foodString = this.food_content.toString();
 
             // Il primo argomento della chiamata axios è l'url al quale dovranno essere inviati i dati con metodo post, completo di rotta api/orders (vedi api.php in back end).
             axios.post('http://127.0.0.1:8000/api/orders', {
@@ -38,7 +41,8 @@ export default {
                 client_phone: this.client_phone,
                 client_email: this.client_email,
                 notes: this.notes,
-                // foods: this.food_content,
+                foods: foodString,
+                // quantity: this.store.plateCount
             })
             .then(response => {
                 console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
