@@ -18,7 +18,7 @@ export default {
             client_email: '',
             notes: '',
             food_content: [],
-            // counter: []
+            counter: []
         }
     },
     methods: {
@@ -42,7 +42,7 @@ export default {
                 client_email: this.client_email,
                 notes: this.notes,
                 foods: foodString,
-                // quantity: this.store.plateCount
+                quantity: this.store.plateCount
             })
             .then(response => {
                 console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
