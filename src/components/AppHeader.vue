@@ -48,7 +48,7 @@ export default {
 
             <!-- Logo -->
             <div class="col-md-4  d-flex justify-content-center align-items-center">
-                <router-link :to="{ name: 'Home' }" class="nav-link logo-link">
+                <router-link :to="{ name: 'appmain' }" class="nav-link logo-link">
                     <i class="fa-solid fa-burger me-1"></i>
                     <span><strong>
                         Deliveboo
