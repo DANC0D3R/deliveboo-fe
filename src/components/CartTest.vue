@@ -75,7 +75,7 @@ export default {
 
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div v-if="store.totalPrice > 0" class="row justify-content-center">
             <div class="col-12 mb-3">
                 <h4>
                     Il tuo ordine
@@ -121,10 +121,7 @@ export default {
                 </strong></span>     
             </div>
 
-            <!-- <div v-if="totalPrice == 0">
-                <p>Aggungi piatti per procedere all'ordine</p>
-            </div> -->
-            <!-- <div v-else> -->
+            <div>
                 <!-- Pulsante che reinderizza al check-out -->
                 <router-link :to="{ name: 'checkout' }" class="btn btn-success col-12 mt-4">
                     Vai al cheockout
@@ -138,10 +135,12 @@ export default {
                 <button class="btn btn-danger col-12 mb-4" v-on:click="deleteData()">
                     Cancella ordine
                 </button>
-            <!-- </div> -->
-        
+            </div>
         </div>
 
+        <div v-else>
+            <h4>Aggungi piatti per visualizzare il tuo ordine</h4>
+        </div>
     </div>
 </template>
 
