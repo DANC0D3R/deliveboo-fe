@@ -39,7 +39,18 @@ export default {
                 console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
             }); //Dopo il .then potremmo anche aggiungere un .catch per gli aventuali errori.
 
+            this.deleteData();
+            this.deleteForm();
+
             alert('ordine inviato');
+        },
+        deleteForm() {
+            this.client_name = '';
+            this.client_surname = '';
+            this.client_address = '';
+            this.client_phone = '';
+            this.client_email = '';
+            this.notes = '';
         },
         refreshData() {
             this.store.order = []; //svuotiamo l'array per evitare raddoppi
@@ -243,7 +254,7 @@ export default {
                 <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
 
                 <button type="submit" class="btn btn-success">
-                    Invia ordine
+                    Invia ordine e procedi al pagamento
                 </button>
             </form>
         </div>
