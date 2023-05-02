@@ -18,6 +18,7 @@ export default {
     },
     created() {
         this.getTypes();
+        this.getRestaurants(); // chiamata per mostrare tutti i ristoranti all'avvio della pagina
     },
     methods: {
         changePage(page) {
@@ -44,28 +45,45 @@ export default {
             this.restaurants = []; //Così svuotiamo l'array dei ristoranti
             let typeIds = this.selectedTypes; // array degli id dei tipi selezionati
 
-            axios
-                .get('http://127.0.0.1:8000/api/restaurants', {
-                    params: {
-                        page: this.currentPage
-                    }
-                })
-                .then(response => {
-                    console.log('ristoranti', response.data);
-                    const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
-
-                    this.lastPage = response.data.restaurants.last_page
-
-                    console.log('restaurantsData', restaurantsData);
-
-                    // Con questa funzione filtriamo i ristoranti, aggiungendo all'array solo quelli che tra le tipologie hanno quelle con l'id ricercato
-                    this.restaurants = restaurantsData.filter(restaurant => {
-                        let restaurantTypeIds = restaurant.types.map(type => type.id);
-                        return typeIds.some(typeId => restaurantTypeIds.includes(typeId));
+            if (typeIds.length === 0) {
+                // se non viene selezionata nessuna checkbox, mostriamo tutti i ristoranti
+                axios
+                    .get('http://127.0.0.1:8000/api/restaurants', {
+                        params: {
+                            page: this.currentPage
+                        }
+                    })
+                    .then(response => {
+                        console.log('ristoranti', response.data);
+                        this.restaurants = response.data.restaurants.data;
+                        this.lastPage = response.data.restaurants.last_page;
+                        console.log('restaurants', this.restaurants);
                     });
-                console.log('restaurants', this.restaurants);
-                });
+            } else {
+                axios
+                    .get('http://127.0.0.1:8000/api/restaurants', {
+                        params: {
+                            page: this.currentPage
+                        }
+                    })
+                    .then(response => {
+                        console.log('ristoranti', response.data);
+                        const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
+
+                        this.lastPage = response.data.restaurants.last_page
+
+                        console.log('restaurantsData', restaurantsData);
+
+                        // Con questa funzione filtriamo i ristoranti, aggiungendo all'array solo quelli che tra le tipologie hanno quelle con l'id ricercato
+                        this.restaurants = restaurantsData.filter(restaurant => {
+                            let restaurantTypeIds = restaurant.types.map(type => type.id);
+                            return typeIds.some(typeId => restaurantTypeIds.includes(typeId));
+                        });
+                    console.log('restaurants', this.restaurants);
+                    });
+            }
         }
+
     }
 };
 </script>
