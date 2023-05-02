@@ -9,49 +9,10 @@ export default {
             orderCart: [],
             // totalPrice: 0,
             // restaurantId: store.order[0].restaurant_id,
-            restaurantId: '',
-
-            client_name: '',
-            client_surname: '',
-            client_address: '',
-            client_phone: '',
-            client_email: '',
-            notes: '',
+            restaurantId: ''
         }
     },
     methods: {
-        createOrder() {
-            this.restaurantId = this.store.order[0].restaurant_id;
-
-            // Il primo argomento della chiamata axios è l'url al quale dovranno essere inviati i dati con metodo post, completo di rotta api/orders (vedi api.php in back end).
-            axios.post('http://127.0.0.1:8000/api/orders', {
-                // Il secondo argomento è un oggetto che contiene dei rapporti chiave/valore dove i valori sono gli stessi che salviamo in data, presi dagli input.
-                restaurant_id: this.restaurantId,
-                total_price: this.store.totalPrice,
-                client_name: this.client_name,
-                client_surname: this.client_surname,
-                client_address: this.client_address,
-                client_phone: this.client_phone,
-                client_email: this.client_email,
-                notes: this.notes
-            })
-            .then(response => {
-                console.log(response); //Con questo console.log visualiziamo in console il messaggio di avvenuto salvataggio nel database.
-            }); //Dopo il .then potremmo anche aggiungere un .catch per gli aventuali errori.
-
-            this.deleteData();
-            this.deleteForm();
-
-            alert('ordine inviato');
-        },
-        deleteForm() {
-            this.client_name = '';
-            this.client_surname = '';
-            this.client_address = '';
-            this.client_phone = '';
-            this.client_email = '';
-            this.notes = '';
-        },
         refreshData() {
             this.store.order = []; //svuotiamo l'array per evitare raddoppi
             this.store.plateCount = {};
@@ -82,12 +43,6 @@ export default {
             this.store.order.splice(targetIndex, 1); //togliamo quel piatto dall'array
             localStorage.setItem('order', JSON.stringify(this.store.order)); //sovrascriviamo il localstorage
         },
-        deleteData() {
-            localStorage.clear(); //questo svuota localstorage
-            this.store.order = []; //questo svuota lo store
-            this.store.plateCount = {};
-            this.store.totalPrice = 0;
-        },
         increaseQuantity(item) {
             this.store.plateCount['food-' + item.id] ++; //aumenta di 1 il contatore del piatto
             this.store.totalPrice += parseFloat(item.price); //aumenta il prezzo totale
@@ -104,7 +59,13 @@ export default {
             else {
                 this.refreshData();
             }
-        }
+        },
+        deleteData() {
+            localStorage.clear(); //questo svuota localstorage
+            this.store.order = []; //questo svuota lo store
+            this.store.plateCount = {};
+            this.store.totalPrice = 0;
+        },
     },
     mounted() {
         this.refreshData();
@@ -129,7 +90,7 @@ export default {
                 </p>
 
                 <p>
-                    <span>Prezzo: </span>
+                    <span>Prezzo singolo piatto: </span>
                     <strong>{{ singleOrder.price }}€</strong>
                 </p>
 
@@ -152,7 +113,7 @@ export default {
                 </div>
             
             </div>
-       
+
             <div class="single-order py-4 col-12 d-flex justify-content-between">
                 <span>Totale Ordine:</span>
                 <span> <strong>
@@ -160,103 +121,25 @@ export default {
                 </strong></span>     
             </div>
 
-            <!-- questo pulsante svuota il localstorage -->
-            <button class="btn btn-danger col-12 mt-4" v-on:click="deleteData()">
-                Cancella ordine
-            </button>
-        
-        </div>
+            <!-- <div v-if="totalPrice == 0">
+                <p>Aggungi piatti per procedere all'ordine</p>
+            </div> -->
+            <!-- <div v-else> -->
+                <!-- Pulsante che reinderizza al check-out -->
+                <router-link :to="{ name: 'checkout' }" class="btn btn-success col-12 mt-4">
+                    Vai al cheockout
+                </router-link>
 
-        <hr class="my-5">
-
-        <div class="row justify-content-center">
-            <div class="col-12 mb-3">
-                <h4>
-                    Check out
-                </h4>
-            </div>
-
-            <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
-
-                <!-- Nome -->
-                <div class="mb-3">
-                    <label for="client_name" class="form-label">Nome <strong>*</strong></label>
-                    <input v-model="client_name"
-                    name="client_name" 
-                    id="client_name"
-                    type="text" 
-                    class="form-control"
-                    placeholder="Inserisci il tuo nome..."
-                    required>
-                </div>
-
-                <!-- Cognome -->
-                <div class="mb-3">
-                    <label for="client_surname" class="form-label">Cognome <strong>*</strong></label>
-                    <input v-model="client_surname"
-                    name="client_surname" 
-                    id="client_surname"
-                    type="text" 
-                    class="form-control"
-                    placeholder="Inserisci il tuo cognome..."
-                    required>
-                </div>
-
-                <!-- Indirizzo -->
-                <div class="mb-3">
-                    <label for="client_address" class="form-label">Indirizzo <strong>*</strong></label>
-                    <input v-model="client_address"
-                    name="client_address" 
-                    id="client_address"
-                    type="text" 
-                    class="form-control"
-                    placeholder="Inserisci il tuo indirizzo..."
-                    required>
-                </div>
-
-                <!-- Telefono -->
-                <div class="mb-3">
-                    <label for="client_phone" class="form-label">Numero di telefono <strong>*</strong></label>
-                    <input v-model="client_phone"
-                    name="client_phone" 
-                    id="client_phone"
-                    type="text" 
-                    class="form-control"
-                    placeholder="Inserisci il tuo numero di telefono..."
-                    required>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="client_email" class="form-label">Email <strong>*</strong></label>
-                    <input v-model="client_email"
-                    name="client_email" 
-                    id="client_email"
-                    type="email" 
-                    class="form-control"
-                    placeholder="Inserisci la tua email..."
-                    required>
-                </div>
-
-                <!-- Note -->
-                <div class="mb-3">
-                    <label for="notes" class="form-label">Note</label>
-                    <textarea 
-                    v-model="notes" 
-                    name="notes" 
-                    id="notes" 
-                    cols="30" 
-                    rows="10"
-                    class="form-control"
-                    placeholder="Note"></textarea>
-                </div>
-
-                <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
-
-                <button type="submit" class="btn btn-success">
-                    Invia ordine e procedi al pagamento
+                <!-- questo pulsante svuota il localstorage -->
+                <p class="mt-5 delete-text">
+                    Non sei soddisfatto? Vuoi ordinare da un altro ristorante? <br>
+                    Cancella l'ordine attuale ed effettuane un altro!
+                </p>
+                <button class="btn btn-danger col-12 mb-4" v-on:click="deleteData()">
+                    Cancella ordine
                 </button>
-            </form>
+            <!-- </div> -->
+        
         </div>
 
     </div>
@@ -282,9 +165,7 @@ h4{
     }
 }
 
-form{
-    p{
-        font-size:0.8rem;
-    }
+.delete-text{
+    font-size: 0.8rem;
 }
 </style>

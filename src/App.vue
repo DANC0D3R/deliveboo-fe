@@ -25,13 +25,23 @@ export default {
 <template>
   <AppHeader />
 
-  <AppMain />
+  <div>
+
+    <main>
+        <router-view>
+
+        </router-view>
+    </main>
+    
+  </div>
 
   <AppFooter />
 
 
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+main{
+    margin-top:60px;
+}
 </style>
