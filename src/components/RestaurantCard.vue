@@ -67,8 +67,7 @@ export default {
             Menù
         </router-link>
         <p v-else class="px-4">
-            Puoi ordinare da un solo ristorante alla volta! Svuota il carrello per ordinare da 
-            {{ restaurant.name }}.
+            Puoi ordinare da un solo ristorante alla volta!
         </p>
     </div>
 </template>
