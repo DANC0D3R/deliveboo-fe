@@ -11,7 +11,7 @@ export default {
         return {
             types: [],
             restaurants: [],
-            targetType: '',
+            selectedTypes: [], // variabile per contenere gli id dei tipi selezionati
             currentPage: 1,
             lastPage: 1,
         };
@@ -42,8 +42,7 @@ export default {
         },
         getRestaurants() {
             this.restaurants = []; //Così svuotiamo l'array dei ristoranti
-
-            let typeId = this.targetType.id; //Qui salviamo l'id della tipologia ricercata
+            let typeIds = this.selectedTypes; // array degli id dei tipi selezionati
 
             axios
                 .get('http://127.0.0.1:8000/api/restaurants', {
@@ -60,14 +59,11 @@ export default {
                     console.log('restaurantsData', restaurantsData);
 
                     // Con questa funzione filtriamo i ristoranti, aggiungendo all'array solo quelli che tra le tipologie hanno quelle con l'id ricercato
-                    for (let j = 0; j < restaurantsData.length; j++) {
-                        for (let i = 0; i < restaurantsData[j].types.length; i++) {
-                            if (restaurantsData[j].types[i].id == typeId) {
-                                this.restaurants.push(restaurantsData[j]); //Qui facciamo push del ristorante giusto nell'array
-                            }
-                        }
-                    };
-                    console.log('restaurants', this.restaurants);
+                    this.restaurants = restaurantsData.filter(restaurant => {
+                        let restaurantTypeIds = restaurant.types.map(type => type.id);
+                        return typeIds.some(typeId => restaurantTypeIds.includes(typeId));
+                    });
+                console.log('restaurants', this.restaurants);
                 });
         }
     }
@@ -80,11 +76,14 @@ export default {
         </div>
 
         <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
-            <select class="col-6 rounded-start" name="types" id="types" v-model="targetType">
-                <option v-for="singleType in types" :value="singleType">
-                    {{ singleType.name }}
-                </option>
-            </select>
+            <div class="col-6 rounded-start">
+                <div v-for="singleType in types" :key="singleType.id">
+                    <label>
+                        <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
+                        {{ singleType.name }}
+                    </label>
+                </div>
+            </div>
             <button type="submit" class="col-1 rounded-end" value="Cerca"><i
                     class="fa-solid fa-magnifying-glass"></i>
             </button>
