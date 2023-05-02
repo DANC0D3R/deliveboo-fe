@@ -112,30 +112,14 @@ export default {
             </div>
         </div>
 
-        <!-- <div class="row">
-                                                                                                                                                                                                                                <div class="col">
-                                                                                                                                                                                                                                    <nav class="d-flex justify-content-center">
-                                                                                                                                                                                                                                        <ul class="pagination">
-                                                                                                                                                                                                                                            <li class="page-item" v-for="i in lastPage">
-                                                                                                                                                                                                                                                <button class="page-link" :class="{
-                                                                                                                                                                                                                                                    active: currentPage == i
-                                                                                                                                                                                                                                                }" @click="changePage(i)">
-                                                                                                                                                                                                                                                    {{ i }}
-                                                                                                                                                                                                                                                </button>
-                                                                                                                                                                                                                                            </li>
-                                                                                                                                                                                                                                        </ul>
-                                                                                                                                                                                                                                    </nav>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                            </div> -->
-
         <!-- PAGINE -->
-        <div class="d-flex justify-content-center mb-4">
+        <!-- <div class="d-flex justify-content-center mb-4">
             <div class="page-button" v-for="singlePage in lastPage">
                 <button @click="changePage(singlePage)">
                     {{ singlePage }}
                 </button>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
