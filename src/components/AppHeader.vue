@@ -17,19 +17,20 @@ export default {
 </script>
 
 <template>
-
-  <header class="menu shadow px-5 py-3">
-        <div class="row d-flex justify-content-between align-items-center">
+    <header class="menu shadow px-5 py-3">
+        <div class="row d-flex align-items-center">
 
             <!-- Carrello -->
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4">
 
-                <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions">
                     Il tuo carrello
                 </a>
 
-                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                    
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+                    aria-labelledby="offcanvasWithBothOptionsLabel">
+
                     <!-- Titolo -->
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
@@ -47,41 +48,40 @@ export default {
             </div>
 
             <!-- Logo -->
-            <div class="col-md-4  d-flex justify-content-center align-items-center">
+            <div class="col-md-4 col-sm-4 d-flex justify-content-center align-items-center">
                 <router-link :to="{ name: 'appmain' }" class="nav-link logo-link">
                     <i class="fa-solid fa-burger me-1"></i>
                     <span><strong>
-                        Deliveboo
-                    </strong></span>
+                            Deliveboo
+                        </strong></span>
                 </router-link>
             </div>
 
 
             <!-- Accedi o Registrati -->
-            <div class="col-md-4 text-end">
+            <div class="col-md-4 text-end col-sm-4">
                 <a href="http://127.0.0.1:8000/" class="me-2">
                     Sei un ristoratore? Accedi o Registrati
                 </a>
             </div>
-        
-        </div>
-  </header>
 
+        </div>
+    </header>
 </template>
 
 <style lang="scss" scoped>
-.menu{
+.menu {
     background-color: white;
     height: 60px;
     position: fixed;
     width: 100%;
-    top:0;left:0;
+    top: 0;
+    left: 0;
     z-index: 30;
 
-    .logo-link:hover{
+    .logo-link:hover {
         text-decoration: none !important;
     }
 
 }
-
 </style>
