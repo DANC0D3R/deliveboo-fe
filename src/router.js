@@ -36,7 +36,7 @@ const router = createRouter({
             component: CheckOut
         },
         {
-            path: '/home-deliveboo',
+            path: '/Home',
             name: 'appmain',
             component: AppMain
         },
