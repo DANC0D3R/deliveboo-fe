@@ -26,13 +26,13 @@ export default {
         
             <!-- Nome -->
             <h4 class="card-title my-2 ms-4">
-                {{ restaurant.name }}
+                <strong>{{ restaurant.name }}</strong>
             </h4>
 
             <!-- Indirizzo -->
             <div class="ps-4">
                 <p>
-                    <i class="fa-solid fa-location-dot icons"></i>
+                    <i class="fa-solid fa-location-dot" style="color: #FF8400;"></i>
                     {{ restaurant.address }}
                 </p>
             </div>
@@ -89,6 +89,9 @@ export default {
 
         .card-footer{
             border-radius: 0 30px 0 30px !important;
+            ul li::marker {
+                color: #FF8400;
+}
         }
     }
 
