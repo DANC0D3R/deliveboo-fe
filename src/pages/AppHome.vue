@@ -72,15 +72,6 @@ export default {
                 <RestaurantCard :restaurant="restaurant" />
             </div>
         </div>
-
-        <!-- PAGINE -->
-        <!-- <div class="d-flex justify-content-center mb-4">
-            <div class="page-button" v-for="singlePage in lastPage">
-                <button @click="changePage(singlePage)">
-                    {{ singlePage }}
-                </button>
-            </div>
-        </div> -->
     </div>
 
 </template>

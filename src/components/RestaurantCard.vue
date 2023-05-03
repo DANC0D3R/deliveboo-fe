@@ -97,5 +97,8 @@ export default {
         background-color: $main-orange !important;
         border:none !important;
     }
+    .button-menu:hover{
+        background-color: $main-yellow !important;
+    }
 }
 </style>

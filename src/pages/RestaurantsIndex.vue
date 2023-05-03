@@ -12,8 +12,7 @@ export default {
             types: [],
             restaurants: [],
             selectedTypes: [], // variabile per contenere gli id dei tipi selezionati
-            currentPage: 1,
-            lastPage: 1,
+            
         };
     },
     created() {
@@ -21,13 +20,6 @@ export default {
         this.getRestaurants(); // chiamata per mostrare tutti i ristoranti all'avvio della pagina
     },
     methods: {
-        changePage(page) {
-            // 1. cambio la pagina
-            this.currentPage = page;
-
-            //2. richiamo la funzione per mostrare i ristoranti
-            this.getRestaurants();
-        },
 
         targetTypeCheck() {
             console.log(this.targetType);
@@ -62,15 +54,11 @@ export default {
             } else {
                 axios
                     .get('http://127.0.0.1:8000/api/restaurants', {
-                        params: {
-                            page: this.currentPage
-                        }
+                    
                     })
                     .then(response => {
                         console.log('ristoranti', response.data);
                         const restaurantsData = response.data.restaurants.data; //Qui salviamo il risultato della chiamata in una variabile
-
-                        this.lastPage = response.data.restaurants.last_page
 
                         console.log('restaurantsData', restaurantsData);
 
@@ -88,73 +76,85 @@ export default {
 };
 </script>
 <template>
+
     <div class="container">
-        <div class="row text-center mb-3">
-            <h2>Cerca un ristorante per tipo</h2>
+
+        <div class="row text-center mb-5">
+            <h2>Ordina online dai ristoranti</h2>
         </div>
+        
+        <div class="row">
+            
+            <form class="col-3 justify-content-center mb-4" @submit.prevent="getRestaurants">
+                <h4 class="mb-3">
+                    Scegli per tipologia
+                </h4>
 
-        <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants">
-            <div class="col-6 rounded-start">
-                <div v-for="singleType in types" :key="singleType.id">
-                    <label>
-                        <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
-                        {{ singleType.name }}
-                    </label>
+                <p>Filtra tra le varie tipologie e ricerca</p>
+
+                <!-- Checkbox -->
+                <div class="rounded-start">
+                    <div v-for="singleType in types" :key="singleType.id">
+                        <label class="mb-1">
+                            <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
+                            {{ singleType.name }}
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="col-1 rounded-end" value="Cerca"><i
-                    class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
 
-        <!-- <form class="row justify-content-center mb-4" @submit.prevent="getRestaurants()">
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <div v-for="singleType in types">
-                    <input type="checkbox" class="btn-check" :id="singleType.name" autocomplete="off">
-                    <label class="btn btn-outline-primary" :for="singleType.name">
-                        {{ singleType.name }}
-                    </label>
-                </div>
-            </div>
-
-            <button type="submit" class="col-1 rounded-end" value="Cerca"><i
-                    class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form> -->
-
-        <!-- Ristoranti -->
-        <div class="row g-4 mb-4">
-            <div v-for="restaurant in restaurants" class="col-12 col-sm-4 col-md-3">
-                <RestaurantCard :restaurant="restaurant" />
-            </div>
-        </div>
-
-        <!-- PAGINE -->
-        <!-- <div class="d-flex justify-content-center mb-4">
-            <div class="page-button" v-for="singlePage in lastPage">
-                <button @click="changePage(singlePage)">
-                    {{ singlePage }}
+                <!-- Bottone ricerca -->
+                <button type="submit" class="type-button my-2" value="Cerca">
+                    <i class="fa-solid fa-magnifying-glass"></i> Cerca
                 </button>
+
+            </form>
+
+            <!-- Ristoranti -->
+            <div class="col-9 mb-4">
+                <div class="row">
+                    <div v-for="restaurant in restaurants" class="col-4 mb-4">
+                        <RestaurantCard :restaurant="restaurant" />
+                    </div>
+                </div>
             </div>
-        </div> -->
+        </div>
+        
+
     </div>
 </template>
 
 <style scoped lang="scss">
-select {
-    border-right: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: 1px;
-    text-overflow: '';
-    // border-left: none;
+.container{
+    margin-top: 100px;
 
+    h4, h2{
+        font-weight: 600;
+    }
+}
+form{
+
+    label{
+        width: 100%;
+        border-radius:20px;
+        border: 1px solid $main-orange;
+        padding: 10px 25px;
+        color: $main-orange;
+    }
+
+    input{
+    }
+
+    .type-button{
+        width: 100%;
+        border-radius:20px;
+        background-color: $main-orange;
+        padding: 10px 25px;
+        border: none;
+        color: white;
+    }
+    .type-button:hover{
+        background-color: $main-yellow;
+    }
 }
 
-.rounded-end {
-    width: 50px;
-    background-color: white;
-    border: 1px solid black;
-    border-left: none;
-}
 </style>
