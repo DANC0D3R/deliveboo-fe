@@ -23,6 +23,9 @@ export default {
         <div class="card-body position-relative px-0 pt-0 ">
             <!-- Immagine -->
             <img :src="restaurant.img" class="card-img-top mb-3" :alt="restaurant.name">
+            
+            <!-- <img class="card-img-top mb-3" :src="restaurant.full_img_path ?? restaurant.img" alt="Immagine non presente"> -->
+            
         
             <!-- Nome -->
             <h4 class="card-title my-2 ms-4">
