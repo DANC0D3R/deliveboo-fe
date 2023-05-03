@@ -76,14 +76,17 @@ export default {
         <div class="row py-5">
 
             <div class="col-3">
-                <h4>Riepilogo ordine</h4>
+                <h3 class="mb-5"> <strong>Riepilogo ordine</strong></h3>
+
+                <h5>Lista prodotti:</h5>
                 <ul>
-                    <li>Piatto</li>
-                    <li>Piatto</li>
-                    <li>Piatto</li>
-                    <li>Piatto</li>
-                    <li>Piatto</li>
+                    <li v-for="singleOrder in store.order">
+                        {{ singleOrder.name }}
+                    </li>
                 </ul>
+
+                <h5 class="mt-5">Totale ordine:</h5>
+                <p>{{ store.totalPrice.toFixed(2) }}€</p>
             </div>
 
             <div class="col-9 mb-3">
