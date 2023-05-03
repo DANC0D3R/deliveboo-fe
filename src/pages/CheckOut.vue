@@ -2,11 +2,12 @@
 import {store} from "../../store.js";
 import axios from 'axios';
 
+import Riepilogo from "../components/Riepilogo.vue";
 
 export default {
     name: 'CheckOut',
     components: {
-        
+        Riepilogo,
     },
     data() {
         return {
@@ -16,6 +17,7 @@ export default {
             // restaurantId: store.order[0].restaurant_id,
             restaurantId: '',
 
+            //Form client
             client_name: '',
             client_surname: '',
             client_address: '',
@@ -23,7 +25,13 @@ export default {
             client_email: '',
             notes: '',
             food_content: [],
-            counter: []
+            counter: [],
+
+            //Form pagamento
+            numero_carta : '',
+            titolare_carta : '',
+            data_scadenza : '',
+            cvc : '',
 
         };
     },
@@ -55,8 +63,15 @@ export default {
 
             this.deleteData();
             this.deleteForm();
+            this.deleteFormPayment();
 
-            alert('ordine inviato');
+            //alert('ordine inviato');
+        },
+        deleteFormPayment() {
+            this.numero_carta = '';
+            this.titolare_carta = '';
+            this.data_scadenza = '';
+            this.cvc = '';
         },
         deleteForm() {
             this.client_name = '';
@@ -71,7 +86,7 @@ export default {
             this.store.order = []; //questo svuota lo store
             this.store.plateCount = {};
             this.store.totalPrice = 0;
-        },
+        }
     }
 };
 
@@ -83,25 +98,14 @@ export default {
 
         <div class="row py-5">
 
-            <div class="col-3">
-                <h3 class="mb-5"> <strong>Riepilogo ordine</strong></h3>
-
-                <h5>Lista prodotti:</h5>
-                <ul>
-                    <li v-for="singleOrder in store.order">
-                        {{ singleOrder.name }}
-                    </li>
-                </ul>
-
-                <h5 class="mt-5">Totale ordine:</h5>
-                <p>{{ store.totalPrice.toFixed(2) }}€</p>
-            </div>
+            <!-- Riepilogo ordine -->
+            <Riepilogo />
 
             <div class="col-9 mb-3">
                 <h4>
                     Check out
                 </h4>
-                    <form>
+                    <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
 
                     <!-- Nome -->
                     <div class="mb-3">
@@ -178,89 +182,17 @@ export default {
 
                     <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
 
-                </form>
+                    <!-- <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Invia ordine e procedi al pagamento
+                    </button> -->
 
-                <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Invia ordine e procedi al pagamento
-                </button>
+                    <router-link :to="{ name: 'payment' }" type="submit" class="btn btn-success" @click="createOrder()">
+                        <span>Procedi al pagamento e invia ordine</span>
+                    </router-link>
+
+                </form>
                 
             </div>
-
-            
-
-            <!-- Button trigger modal -->
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Effettua il pagamento
-            </button> -->
-
-            <!-- Modale pagamento -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-
-                    <!-- Contenuto modale -->
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                Metodo di pagamento
-                            </h1>
-                            <!-- chiusura X-->
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="d-flex justify-content-between">
-                                <h4>Paga con carta</h4>
-                                <div>
-                                    <img src="../img/mastercard-logo.png" alt="mastercard">
-                                    <img src="../img/visa-logo.png" alt="visa">
-                                </div>
-                            </div>
-
-                            <form action="./api/orders" method="POST" @submit.prevent="createOrder()">
-                                <div class="mb-2">
-                                    <label for="numero-carta" class="form-label">
-                                        Numero carta *
-                                    </label>
-                                    <input type="text" class="form-control" id="numero-carta" minlength="13" maxlength="13" required>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="titolare-carta" class="form-label">
-                                        Nome titolare carta *
-                                    </label>
-                                    <input type="text" class="form-control" id="titolare-carta" required>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="data-scadenza" class="form-label">
-                                        Scadenza *
-                                    </label>
-                                    <input type="date" class="form-control" id="data-scadenza" required>
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="cvc" class="form-label">
-                                        CVC *
-                                    </label>
-                                    <input type="text" class="form-control" id="cvc" minlength="3" maxlength="3" required>
-                                </div>
-
-                                <p> Tutti i campi contrassegnati con <strong>*</strong> sono <strong>obbligatori</strong> </p>
-
-                                <button type="submit" class="btn btn-success">Effettua pagamento</button>
-                            </form>
-                        </div>
-
-                        <!-- Esegui -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
-
         </div>
 
     </div>
@@ -271,12 +203,6 @@ export default {
 form{
     p{
        font-size: 0.8rem; 
-    }
-}
-.modal-content{
-    img{
-        height: 2rem;
-        margin-left: 1rem;
     }
 }
 </style>
