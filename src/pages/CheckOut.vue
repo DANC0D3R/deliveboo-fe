@@ -16,6 +16,7 @@ export default {
             // restaurantId: store.order[0].restaurant_id,
             restaurantId: '',
 
+            //Form client
             client_name: '',
             client_surname: '',
             client_address: '',
@@ -23,7 +24,13 @@ export default {
             client_email: '',
             notes: '',
             food_content: [],
-            counter: []
+            counter: [],
+
+            //Form pagamento
+            numero_carta : '',
+            titolare_carta : '',
+            data_scadenza : '',
+            cvc : '',
 
         };
     },
@@ -55,8 +62,15 @@ export default {
 
             this.deleteData();
             this.deleteForm();
+            this.deleteFormPayment();
 
             alert('ordine inviato');
+        },
+        deleteFormPayment() {
+            this.numero_carta = '';
+            this.titolare_carta = '';
+            this.data_scadenza = '';
+            this.cvc = '';
         },
         deleteForm() {
             this.client_name = '';
@@ -72,6 +86,10 @@ export default {
             this.store.plateCount = {};
             this.store.totalPrice = 0;
         },
+        onMenuClick(restaurantId) {
+            store.selectedRestaurant = restaurantId;
+            console.log("Ciao mamma", store.selectedRestaurant);
+        }
     }
 };
 
@@ -83,18 +101,27 @@ export default {
 
         <div class="row py-5">
 
-            <div class="col-3">
+            <!-- Riepilogo ordine -->
+            <div class="col-3 riepilogo-ordine">
                 <h3 class="mb-5"> <strong>Riepilogo ordine</strong></h3>
 
-                <h5>Lista prodotti:</h5>
-                <ul>
-                    <li v-for="singleOrder in store.order">
-                        {{ singleOrder.name }}
-                    </li>
-                </ul>
+                <h5><strong>
+                    Lista prodotti:
+                </strong></h5>
 
-                <h5 class="mt-5">Totale ordine:</h5>
-                <p>{{ store.totalPrice.toFixed(2) }}€</p>
+                <div v-for="singleOrder in store.order">
+                    <span>{{ store.plateCount['food-' + singleOrder.id] }} x</span> 
+                    {{ singleOrder.name }}
+                </div>
+
+                <hr class="my-5">
+
+                <div class="d-flex justify-content-between">
+                    <h5>Totale ordine:</h5>
+                    <p> <strong>
+                        {{ store.totalPrice.toFixed(2) }}€
+                    </strong></p>
+                </div>
             </div>
 
             <div class="col-9 mb-3">
@@ -180,9 +207,9 @@ export default {
 
                 </form>
 
-                <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Invia ordine e procedi al pagamento
-                </button>
+                    <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Invia ordine e procedi al pagamento
+                    </button>
                 
             </div>
 
@@ -193,8 +220,8 @@ export default {
                 Effettua il pagamento
             </button> -->
 
-            <!-- Modale pagamento -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <!-- Modale pagamento -->
+           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
 
                     <!-- Contenuto modale -->

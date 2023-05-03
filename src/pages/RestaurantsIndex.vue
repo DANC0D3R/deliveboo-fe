@@ -93,17 +93,19 @@ export default {
                 <p>Filtra tra le varie tipologie e ricerca</p>
 
                 <!-- Checkbox -->
-                <div class="rounded-start">
+                <div class="checkbox-container">
+                    <div class="rounded-start">
                     <div v-for="singleType in types" :key="singleType.id">
                         <label class="mb-1">
                             <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
                             {{ singleType.name }}
                         </label>
                     </div>
+                    </div>
                 </div>
 
                 <!-- Bottone ricerca -->
-                <button type="submit" class="type-button my-2" value="Cerca">
+                <button type="submit" class="type-button my-4" value="Cerca">
                     <i class="fa-solid fa-magnifying-glass"></i> Cerca
                 </button>
 
@@ -131,17 +133,20 @@ export default {
         font-weight: 600;
     }
 }
-form{
 
-    label{
-        width: 100%;
-        border-radius:20px;
-        border: 1px solid $main-orange;
-        padding: 10px 25px;
-        color: $main-orange;
-    }
+form{                      
+    .checkbox-container{
+        height: 450px;
+        overflow: auto;
 
-    input{
+        label{
+            width: 100%;
+            border-radius:20px;
+            border: 1px solid $main-orange;
+            padding: 10px 25px;
+            color: $main-orange;
+        }
+
     }
 
     .type-button{
@@ -155,6 +160,7 @@ form{
     .type-button:hover{
         background-color: $main-yellow;
     }
+
 }
 
 </style>
