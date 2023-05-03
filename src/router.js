@@ -7,6 +7,7 @@ import CartTest from './pages/CartTest.vue';
 import CheckOut from './pages/CheckOut.vue';
 import AppMain from './components/AppMain.vue';
 import ThankYou from './components/ThankYou.vue';
+import Payment from './components/Payment.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -40,6 +41,11 @@ const router = createRouter({
             path: '/Home',
             name: 'appmain',
             component: AppMain
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: Payment
         },
         {
             path: '/thank-you',

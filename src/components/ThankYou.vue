@@ -18,9 +18,10 @@ export default {
 <template>
 
   <div class="container">
-    <div class="row g-3">
-        <div class="col-4 d-flex justify-content-between align-items-center">
-            <h1>Logo</h1>
+    <div class="row g-3 align-items-center">
+
+        <div class="col-4 d-flex justify-content-between align-items-center img-container">
+            <img src="../img/logo.png" alt="logo-success">
         </div>
 
         <div class="col-8">
@@ -55,6 +56,10 @@ export default {
 <style lang="scss" scoped>
 .container{
     padding: 100px 0;
+
+    .img-container img{
+        width: 100%;
+    }
 
     .check{
         color: rgb(3, 160, 3);
