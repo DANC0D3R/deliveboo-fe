@@ -15,7 +15,6 @@ export default {
 </script>
 
 <template>
-
     <div class="background p-5">
         <div class="container">
 
@@ -28,7 +27,7 @@ export default {
                         <div class="overlay p-5 text-center">
                             <h3>Comfort food</h3>
                             <p>I grandi classici che scaldano il cuore, perfetti in ogni momento.</p>
-                    
+
                         </div>
                     </div>
                 </div>
@@ -38,16 +37,17 @@ export default {
                         <div class="overlay p-5 text-center">
                             <h3>Dolci e Dessert</h3>
                             <p>Dolci piaceri per rendere la giornata ancora più gustosa.</p>
-                    
+
                         </div>
                     </div>
                 </div>
 
-                <div class="col-7"> 
+                <div class="col-7">
                     <div class="box">
                         <div class="overlay p-5 text-center">
                             <h3>Piatti da condividere</h3>
-                            <p>Serve una scusa per stare insieme? Ordina dai ristoranti che trasformeranno la tua serata in un vera festa.</p>
+                            <p>Serve una scusa per stare insieme? Ordina dai ristoranti che trasformeranno la tua serata in
+                                un vera festa.</p>
                         </div>
                     </div>
 
@@ -64,21 +64,20 @@ export default {
 
             </div>
 
-        </div>  
+        </div>
     </div>
-    
-    
-
 </template>
 
 <style lang="scss" scoped>
-.background{
+.background {
     background-color: #ffeae4;
 }
-h1{
+
+h1 {
     font-weight: 600;
 }
-.box{
+
+.box {
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -90,7 +89,7 @@ h1{
     background-size: cover;
     background-position: center;
 
-    .overlay{
+    .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -98,25 +97,51 @@ h1{
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
 
-        h3{
+        h3 {
             font-weight: 600;
         }
     }
 }
-.row > div:nth-child(1) > .box {
+
+.row>div:nth-child(1)>.box {
     background-image: url('../img/comfort.jpg');
 }
 
-.row > div:nth-child(2) > .box {
+.row>div:nth-child(2)>.box {
     background-image: url('../img/dolci.jpg');
 }
 
-.row > div:nth-child(3) > .box {
+.row>div:nth-child(3)>.box {
     background-image: url('../img/condividere.jpg');
 }
 
-.row > div:nth-child(4) > .box  {
+.row>div:nth-child(4)>.box {
     background-image: url('../img/mondo.jpg');
 }
 
+@media screen and (max-width: 800px) {
+    .box {
+        p {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    h1 {
+        text-align: center;
+    }
+
+    .box {
+        font-size: 0.8rem;
+
+        &>* {
+            width: 100%;
+        }
+
+        p {
+            display: none;
+        }
+    }
+}
 </style>
