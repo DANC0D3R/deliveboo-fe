@@ -23,25 +23,24 @@ export default {
 </script>
 
 <template>
-  <AppHeader />
+    <AppHeader />
 
-  <div>
+    <div>
 
-    <main>
-        <router-view>
+        <main>
+            <router-view>
 
-        </router-view>
-    </main>
-    
-  </div>
+            </router-view>
+        </main>
 
-  <AppFooter />
+    </div>
 
-
+    <AppFooter />
 </template>
 
 <style lang="scss" scoped>
-main{
-    margin-top:60px;
+main {
+    margin-top: 60px;
+    overflow-x: hidden;
 }
 </style>
