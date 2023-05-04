@@ -24,10 +24,10 @@ export default {
         }
     },
     components: {
-    Jumbo,
-    BestFoods,
-    WorkWithUs
-},
+        Jumbo,
+        BestFoods,
+        WorkWithUs
+    },
     methods: {
 
     }
@@ -35,7 +35,6 @@ export default {
 </script>
 
 <template>
-
     <Jumbo />
 
     <!-- Navbar pagine -->
@@ -45,20 +44,20 @@ export default {
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid rounded shadow my-5 d-block background-container">
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
                         <div class="text-container text-center mb-5">
                             <div class="overlay rounded text-center">
                                 <h2>Ordina dai tuoi ristoranti preferiti</h2>
-                                <p>Trova i ristoranti nella tua zona e ordina online a domicilio, rimanendo comodamente sul divano di casa</p>
+                                <p>Trova i ristoranti nella tua zona e ordina online a domicilio, rimanendo comodamente sul
+                                    divano di casa</p>
                             </div>
                         </div>
 
-                        <div class="collapse navbar-collapse button-container" id="navbarNav">
+                        <div class="navbar-collapse button-container" id="navbarNav">
                             <ul class="navbar-nav d-flex w-100 justify-content-center menu-collegamenti">
                                 <li class="nav-item bottoni-collegamenti shadow" v-for="menuItem in menuItems">
                                     <router-link :to="{ name: menuItem.routeName }" class="nav-link text-white">
@@ -76,7 +75,6 @@ export default {
     <BestFoods />
 
     <WorkWithUs />
-
 </template>
 
 <style lang="scss" scoped>
@@ -104,7 +102,7 @@ main {
                 background-color: $main-yellow;
             }
 
-            .bottoni-collegamenti > a{
+            .bottoni-collegamenti>a {
                 text-decoration: none !important;
             }
 
@@ -112,14 +110,14 @@ main {
 
     }
 
-    .background-container{
+    .background-container {
         padding: 120px;
         background-image: url('../img/restaurants-background.jpg');
         background-size: cover;
         background-position: center;
         position: relative;
 
-        .overlay{
+        .overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -135,4 +133,31 @@ main {
     }
 }
 
+@media screen and (max-width: 992px) {
+
+    .bottoni-collegamenti {
+        width: 60%;
+        font-size: 1.3rem !important;
+    }
+
+
+}
+
+@media screen and (max-width: 770px) {
+    .bottoni-collegamenti {
+        width: 60%;
+        font-size: 0.9rem !important;
+        margin-left: 0 !important;
+
+
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .bottoni-collegamenti {
+        width: 60%;
+        font-size: 0.8rem !important;
+        margin-left: 0 !important;
+    }
+}
 </style>
