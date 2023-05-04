@@ -77,7 +77,7 @@ export default {
         },
         deleteSingleOrder(item) {
             const targetIndex = this.store.order.indexOf(item); //troviamo l'index del singolo piatto
-            this.store.totalPrice -= parseFloat(item.price); //sottraiamo il prezzo del piatto eliminato dal prezzo totale
+            this.store.totalPrice -= parseFloat(item.price* this.store.plateCount['food-' + item.id]); //sottraiamo il prezzo del piatto eliminato dal prezzo totale
             this.store.order.splice(targetIndex, 1); //togliamo quel piatto dall'array
             localStorage.setItem('order', JSON.stringify(this.store.order)); //sovrascriviamo il localstorage
         },
