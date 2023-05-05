@@ -38,7 +38,7 @@ const router = createRouter({
             component: CheckOut
         },
         {
-            path: '/Home',
+            path: '/', //tenendoci solo lo slash, come prima pagina comparirà il main. Se dovesse dare problemi, rimettere la stringa che c'era prima "/Home"
             name: 'appmain',
             component: AppMain
         },
