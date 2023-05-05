@@ -11,7 +11,7 @@ export default {
         return {
             store,
             restaurants: [],
-            doubles: []
+            doubles: [],
             // currentPage: 1,
             // lastPage: 1
         };
@@ -29,10 +29,7 @@ export default {
         this.getFoods(store.selectedRestaurant);
     },
     methods: {
-        // changePage(page) {
-        //     this.currentPage = page;
-        //     this.getPosts();
-        // },
+
         getFoods(restaurantId) {
             console.log("papa", restaurantId);
             axios
@@ -118,8 +115,10 @@ export default {
         <div class="row">
             <div v-for="food in store.foodsList.food"
                 class="card-container col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-4 card px-0 shadow rounded-end">
+                
                 <a>
-                    <img :src="food.img" class="card-img-top" :alt="food.name">
+                    <img v-if="food.img.indexOf('http') > -1" :src="food.img" class="card-img-top mb-3" :alt="food.name">
+                    <img v-else :src="food.full_img_path" class="card-img-top mb-3" :alt="food.name">
                 </a>
                 <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay text-decoration-none">
                     <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
@@ -188,7 +187,8 @@ export default {
 
                             <div class="modal-body">
                                 <div class="text-center mb-3">
-                                    <img :src="food.img" alt="" style="width: 22rem;">
+                                    <img v-if="food.img.indexOf('http') > -1" :src="food.img" style="width: 22rem;" :alt="food.name">
+                                    <img v-else :src="food.full_img_path" style="width: 22rem;" :alt="food.name">
                                 </div>
 
                                 <p>{{ food.description }}</p>

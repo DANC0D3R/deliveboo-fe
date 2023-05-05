@@ -5,14 +5,26 @@ export default {
     data() {
         return {
            store,
-           index: 0
+           index: 0,
+           imgPathString: ''
         };
     },
     props: ['restaurant'],
+    mounted() {
+        this.imgPath(this.restaurant.img);
+    },
     methods: {
         onMenuClick(restaurantId) {
             store.selectedRestaurant = restaurantId;
             console.log("Ciao mamma", store.selectedRestaurant);
+        },
+        imgPath(item) {
+            if (item.indexOf('http') > -1) {
+                return this.imgPathString = this.restaurant.img;
+            }
+            else {
+                return this.imgPathString = this.restaurant.full_img_path;
+            }
         }
     }
 };
@@ -22,7 +34,7 @@ export default {
 
         <div class="card-body position-relative px-0 pt-0 ">
             <!-- Immagine -->
-            <img :src="restaurant.img" class="card-img-top mb-3" :alt="restaurant.name">
+            <img :src="imgPathString" class="card-img-top mb-3" :alt="restaurant.name">
         
             <!-- Nome -->
             <h4 class="card-title my-2 ms-4">
