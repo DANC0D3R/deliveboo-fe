@@ -117,8 +117,7 @@ export default {
                 class="card-container col-xl-3 col-lg-3 col-md-4 col-sm-12 mb-4 card px-0 shadow rounded-end">
                 
                 <a>
-                    <img v-if="food.img.indexOf('http') > -1" :src="food.img" class="card-img-top mb-3" :alt="food.name">
-                    <img v-else :src="food.full_img_path" class="card-img-top mb-3" :alt="food.name">
+                    <img :src="food.img" class="card-img-top mb-3" :alt="food.name">
                 </a>
                 <a :href="'#food-' + food.id" data-bs-toggle="modal" class="overlay text-decoration-none">
                     <span><i class="fa-solid fa-magnifying-glass-plus fa-lg overlay-search"></i></span>
@@ -187,8 +186,7 @@ export default {
 
                             <div class="modal-body">
                                 <div class="text-center mb-3">
-                                    <img v-if="food.img.indexOf('http') > -1" :src="food.img" style="width: 22rem;" :alt="food.name">
-                                    <img v-else :src="food.full_img_path" style="width: 22rem;" :alt="food.name">
+                                    <img :src="food.img" style="width: 22rem;" :alt="food.name">
                                 </div>
 
                                 <p>{{ food.description }}</p>
