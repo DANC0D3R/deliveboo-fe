@@ -34,7 +34,7 @@ export default {
 
         <div class="card-body position-relative px-0 pt-0 ">
             <!-- Immagine -->
-            <img :src="imgPathString" class="card-img-top mb-3" :alt="restaurant.name">
+            <img :src="restaurant.img" class="card-img-top mb-3" :alt="restaurant.name">
         
             <!-- Nome -->
             <h4 class="card-title my-2 ms-4">
