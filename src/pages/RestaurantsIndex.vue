@@ -85,7 +85,7 @@ export default {
         
         <div class="row">
             
-            <form class="col-3 justify-content-center mb-4" @submit.prevent="getRestaurants">
+            <form class="col-12 col-md-3 justify-content-center mb-4" @submit.prevent="getRestaurants">
                 <h4 class="mb-3">
                     Scegli per tipologia
                 </h4>
@@ -95,12 +95,12 @@ export default {
                 <!-- Checkbox -->
                 <div class="checkbox-container">
                     <div class="rounded-start">
-                    <div v-for="singleType in types" :key="singleType.id">
-                        <label class="mb-1">
-                            <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
-                            {{ singleType.name }}
-                        </label>
-                    </div>
+                        <div v-for="singleType in types" :key="singleType.id">
+                            <label class="mb-1">
+                                <input type="checkbox" :value="singleType.id" v-model="selectedTypes">
+                                {{ singleType.name }}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -112,9 +112,9 @@ export default {
             </form>
 
             <!-- Ristoranti -->
-            <div class="col-9 mb-4">
-                <div class="row">
-                    <div v-for="restaurant in restaurants" class="col-4 mb-4">
+            <div class="col-12 col-md-9 mb-4">
+                <div class="row flex-wrap">
+                    <div v-for="restaurant in restaurants" class="col-12 col-sm-6 col-md-4 mb-4">
                         <RestaurantCard :restaurant="restaurant" />
                     </div>
                 </div>
