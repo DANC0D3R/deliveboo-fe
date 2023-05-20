@@ -6,26 +6,26 @@ export default {
         return {
            store,
            index: 0,
-           imgPathString: ''
+        //    imgPathString: ''
         };
     },
     props: ['restaurant'],
     mounted() {
-        this.imgPath(this.restaurant.img);
+        // this.imgPath(this.restaurant.img);
     },
     methods: {
         onMenuClick(restaurantId) {
             store.selectedRestaurant = restaurantId;
             console.log("Ciao mamma", store.selectedRestaurant);
         },
-        imgPath(item) {
-            if (item.indexOf('http') > -1) {
-                return this.imgPathString = this.restaurant.img;
-            }
-            else {
-                return this.imgPathString = this.restaurant.full_img_path;
-            }
-        }
+        // imgPath(item) {
+        //     if (item.indexOf('http') > -1) {
+        //         return this.imgPathString = this.restaurant.img;
+        //     }
+        //     else {
+        //         return this.imgPathString = this.restaurant.full_img_path;
+        //     }
+        // }
     }
 };
 </script>
